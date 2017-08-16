@@ -7,13 +7,12 @@ include ('session.php');
    if(isset($_FILES['fileToUpload']))
    {
       $errors= array();
-      $file_name = $_FILES['fileToUpload']['name'];
+      $file_name = 'Time-Table.docx';
       $file_size =$_FILES['fileToUpload']['size'];
       $file_tmp =$_FILES['fileToUpload']['tmp_name'];
       $file_type=$_FILES['fileToUpload']['type'];
       $file_ext= explode('.',$_FILES['fileToUpload']['name']);
       $file_ext=strtolower(end($file_ext));
-      
      
       if($file_ext != "docx"){
          $errors[]="extension not allowed, please choose a .docx file.";
@@ -24,6 +23,9 @@ include ('session.php');
       }
       
       if(empty($errors)==true){
+		if(file_exists($file_name)){
+			unlink($file_name);
+		}
         move_uploaded_file($file_tmp,$dir."uploaded/temp/".$file_name);
 		
         $data = parse_docx_timetable($dir."uploaded/temp/".$file_name);

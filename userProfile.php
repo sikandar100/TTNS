@@ -3,7 +3,7 @@ $dir = "./";
 define('INCLUDE_CHECK', 'hmm');
 include ('PhpScripts/session.php');
 
-if($_SESSION['login_type'] != 3){
+if($_SESSION['login_type'] != 3 && $_SESSION['login_type'] != 2){
 	die('Forbidden Access');
 }
 include ('PhpScripts/profileFetch.php');

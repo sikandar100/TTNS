@@ -3,7 +3,7 @@ $dir = "./";
 define('INCLUDE_CHECK', 'hmm');
 include ('PhpScripts/session.php');
 
-if($_SESSION['login_type'] != 3){
+if($_SESSION['login_type'] != 3 && $_SESSION['login_type'] != 2){
 	die('Forbidden Access');
 }
 ?>
@@ -83,6 +83,8 @@ function submitForm()
 	else if ($_SESSION['login_type']==2) //Teacher Menu
 	{
     	echo '
+			  <li><a href="userProfile.php">User Profile</a></li>
+			  <li><a href="editProfile.php">Edit Profile</a></li>
 			  <li><a href="teacherNotification.php">Send Notification</a></li>
 			';
 	}
@@ -99,21 +101,23 @@ function submitForm()
 			<li><a href="aboutUs.php">About Us</a></li>
 			<li><a href="PhpScripts/logout.php">Logout</a></li>
 		</ul>
-        <form method="post" class="form-horizontal" onsubmit="submitForm(); return false;">
-		<p style="font-size:250%;">Profile:</p>
-		<table>
-        <tr><td><p style="font-size:150%;">FirstName:</p></td><td> <input type="text" id="Fname" name="Fname" placeholder="FirstName" required></p></td></tr>
-        <tr><td><p style="font-size:150%;">LastName:</p></td> <td><input type="text" id="Lname" name="Lname" placeholder="LastName" required></p></td></tr>
-        <tr><td><p style="font-size:150%;">Address:</p></td><td> <input type="text" id="Address" name="Address" placeholder="Address" required></p></td></tr>
-        <tr><td><p style="font-size:150%;">ContactNo:</p></td><td> <input type="text" id="Contact" name="Contact" placeholder="Contact#" required></p></td></tr>
-        <tr><td><p style="font-size:150%;">Email:</p></td><td> <input type="email" id="Email" name="Email" placeholder="EmailAddress" required></p></td></tr>
-        <tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" id="RegistrationId" name="RegistrationId" placeholder="Registration_Id" required></p></td></tr>
-       </table>
-        <p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
-        <input style="font-size:150%;" type="submit" id="mybtn" value="Submit"></p>
-         </form>
-		 
-		 <p id = "status"></p>
+		<div class="col-md-10">
+			<form method="post" class="form-horizontal" onsubmit="submitForm(); return false;">
+				<p style="font-size:250%;">Profile:</p>
+				<table>
+				<tr><td><p style="font-size:150%;">FirstName:</p></td><td> <input type="text" id="Fname" name="Fname" placeholder="FirstName" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">LastName:</p></td> <td><input type="text" id="Lname" name="Lname" placeholder="LastName" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">Address:</p></td><td> <input type="text" id="Address" name="Address" placeholder="Address" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">ContactNo:</p></td><td> <input type="text" id="Contact" name="Contact" placeholder="Contact#" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">Email:</p></td><td> <input type="email" id="Email" name="Email" placeholder="EmailAddress" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" id="RegistrationId" name="RegistrationId" placeholder="Registration_Id" required></p></td></tr>
+			   </table>
+				<p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
+				<input style="font-size:150%;" type="submit" id="mybtn" value="Submit"></p>
+			</form>
+			 
+			<p id = "status"></p>
+		</div>
     </div>
     
     <div class="footer col-md-12">

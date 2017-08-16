@@ -112,7 +112,7 @@ if($_SESSION['login_type'] == 1){
                 label: 'Teacher',
                 backgroundColor: 'rgb(54, 162, 235)',
                 data: [
-                    <?php echo $report['teacher']?>
+                    <?php echo round($report['teacher']*100/$report['all_time']).''; ?>
                 ],
 				borderColor: 'white',
                 borderWidth: 2,
@@ -121,7 +121,7 @@ if($_SESSION['login_type'] == 1){
                 label: 'Student',
                 backgroundColor: 'rgb(255, 159, 64)',
                 data: [
-                    <?php echo $report['student']?>
+                    <?php echo round($report['student']*100/$report['all_time']).''; ?>
                 ],
                 borderColor: 'white',
                 borderWidth: 2
@@ -130,7 +130,7 @@ if($_SESSION['login_type'] == 1){
                 label: 'Department',
                 backgroundColor: 'rgb(75, 192, 192)',
                 data: [
-                    <?php echo $report['department']?>
+                    <?php echo round($report['department']*100/$report['all_time']).''; ?>
                 ]
             }]
     };
@@ -144,16 +144,17 @@ if($_SESSION['login_type'] == 1){
 				responsive: true,
 				title: {
 					display: true,
-					text: 'Time Table updated total <?php echo $report['all_time']?> number of time.'
+					text: 'Time Table updated total <?php echo $report['all_time']?> number of time. All the below values are the percentage of total updates'
 				},
 				tooltips: {
-					mode: 'index',
+					mode: 'point',
 					intersect: true
 				},
 				"scales": {
 					"yAxes": [{
 						"ticks": {
-							"beginAtZero": true
+							"beginAtZero": true,
+							'max': 100
 						}
 					}]
 				}

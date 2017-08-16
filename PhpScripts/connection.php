@@ -4,7 +4,7 @@ if(!defined('INCLUDE_CHECK')){
 }
 $servername = "localhost";
 $user = "root";
-$pass = "";
+$pass = "code";
 
 $conn = mysqli_connect($servername, $user, $pass,'ttns');
 if(!$conn)
