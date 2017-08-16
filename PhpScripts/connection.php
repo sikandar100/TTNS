@@ -1,15 +1,13 @@
 <?
 $servername = "localhost";
 $user = "root";
-$pass = "";
+$pass = "code";
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-$type = $_POST['radiobtn'];
-
-$conn = mysql_connect($servername, $user, $pass);
+$conn = mysqli_connect($servername, $user, $pass, "ttns");
+var_dump($conn);
 if(!$conn)
 {
 	die("Connection failed: " . mysqli_connect_error());
 }
+echo "fuck";
 ?>

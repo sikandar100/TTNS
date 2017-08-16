@@ -1,4 +1,5 @@
 <?
+$dir = "./";
 include ('PhpScripts/session.php');
 ?>
 <!doctype html>
