@@ -1,3 +1,13 @@
+<?php
+$dir = './';
+session_start();
+define("Allow_user", true);
+if(isset($_SESSION['login_user']))
+{
+	header('Location: '.$dir.'welcome.php');
+	exit;
+}
+?>
 <!doctype html>
 <html>
 <head>

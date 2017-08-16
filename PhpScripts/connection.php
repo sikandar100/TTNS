@@ -1,13 +1,16 @@
-<?
+<?php
+echo "hello connection";
+if(!defined("Allow_user"))
+{
+	die('Forbbiden Access');
+}
 $servername = "localhost";
 $user = "root";
-$pass = "code";
+$pass = "";
 
-$conn = mysqli_connect($servername, $user, $pass, "ttns");
-var_dump($conn);
+$conn = mysqli_connect($servername, $user, $pass,'ttns');
 if(!$conn)
 {
 	die("Connection failed: " . mysqli_connect_error());
 }
-echo "fuck";
 ?>

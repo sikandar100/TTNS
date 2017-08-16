@@ -1,7 +1,9 @@
-<!doctype html>
-<?
+<?php
+$dir = "./";
+define("Allow_user", true);
 include ('PhpScripts/session.php');
 ?>
+<!doctype html>
 <html>
 <head>
  <meta charset="utf-8">

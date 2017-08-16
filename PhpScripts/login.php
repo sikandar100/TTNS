@@ -1,18 +1,37 @@
- <?php
-session_start();
-include "./connection.php";
+<?php
+echo "hello login";
+$dir = '../';
+define("Allow_user", true);
+include('connection.php');
+include('session.php');
 if ($conn) 
 {
-	$query = mysqli_query("SELECT * FROM users WHERE Username = '$username' AND password = '$password' AND Type = '$type'",$conn);
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+	$type = $_POST['radiobtn'];
+	/*
+	stripslashes($username);
+	stripslashes($password);
+	stripslashes($type);
+	
+	mysqli_real_escape_string($conn, $username);
+	mysqli_real_escape_string($conn, $password);
+	mysqli_real_escape_string($conn, $type);*/
+	
+	$query = mysqli_query($conn,"SELECT * FROM users WHERE Username = '$username' AND Password = '$password' AND Type = '$type'");
 	$row = mysqli_num_rows($query);
+	
 	if($row==1)
 	{
 		$_SESSION['login_user']=$username;
-		header("Location:../welcome.php");
+		header('Location: '.$dir.'welcome.php');
+		exit;
 	}
 	else
 	{
-		mysqli_close($conn);
+		mysql_close($conn);
+		echo "Username and password did not match:";
+		header("refresh:10;url=".$dir."index.php");
 	}
 }
 else

@@ -1,10 +1,10 @@
-<?
-echo 'start';
+<?php
+
 session_start();
 
 session_destroy();
 
-header('Location: index.php');
+header("refresh:3;url=".$dir."index.php");
 
 exit;
 ?>

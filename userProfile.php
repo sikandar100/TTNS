@@ -1,4 +1,6 @@
-<?
+<?php
+$dir = "./";
+define("Allow_user", true);
 include ('PhpScripts/session.php');
 ?>
 <!doctype html>
