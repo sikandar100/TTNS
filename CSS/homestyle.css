@@ -1,0 +1,59 @@
+
+.container
+{
+	background-color: #C0C0C0;
+	width: 100%;
+	height: 100%;
+}
+.header
+{
+	background-color:#D99D62;
+	width:100%;
+	height:150px;
+}
+.footer
+{
+	background-color:#D99D62;
+	width:100%;
+	height:20%;
+}
+.content
+{
+	
+	padding-left: 40%; 
+	padding-top: 5%; 
+	padding-bottom: 5%;
+}
+#webtitle
+{
+	color: white;
+	text-align: center;
+	font-size: 300%;
+	padding-top: 3%;
+	
+}
+#foot
+{
+	color:white;
+	text-align:center;
+	font-size:150%;
+}
+.menu
+{
+	float: left;
+	width: 180px;
+	padding-bottom: 10px;
+}
+.contentsect {
+	padding: 10px 0;
+	width: 780px;
+	float: right;
+	
+}
+.content ul, .content ol {
+	padding: 0 15px 15px 40px;
+}
+section, aside
+{
+	display:block;
+}
