@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $user = "root";
-$pass = "code";
+$pass = "";
 
 $conn = mysqli_connect($servername, $user, $pass,'ttns');
 if(!$conn)

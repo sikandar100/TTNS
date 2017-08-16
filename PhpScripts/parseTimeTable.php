@@ -212,9 +212,9 @@ function update_timetable($timetable){
 	if($_POST['reason'] == 1){
 		$sql = 'teacher= teacher + 1';
 	} elseif($_POST['reason'] == 2){
-		$sql = 'student= student + 1'
+		$sql = 'student= student + 1';
 	} else {
-		$sql = 'department= department + 1'
+		$sql = 'department= department + 1';
 	}
 	$sql = "UPDATE `reports` SET all_time= all_time + 1,".$sql." WHERE 1";
 	mysqli_query($conn, $sql);
