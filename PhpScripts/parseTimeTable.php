@@ -1,5 +1,6 @@
 <?php
 $dir = isset($dir) ? $dir : '../';
+define('INCLUDE_CHECK','hmm');
 include('connection.php');
 include ('session.php');
 //----------------------File Upload Logic-----------------------

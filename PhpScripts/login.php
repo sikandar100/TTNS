@@ -1,5 +1,6 @@
 <?php
 $dir = '../';
+define('INCLUDE_CHECK','hmm');
 session_start();
 if(isset($_SESSION['login_user']))
 {

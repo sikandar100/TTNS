@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2017 at 10:01 PM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Jul 08, 2017 at 10:50 PM
+-- Server version: 10.1.22-MariaDB
+-- PHP Version: 7.1.4
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `ttns`
@@ -26,15 +28,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `courses`
 --
 
-CREATE TABLE IF NOT EXISTS `courses` (
-  `Course_Id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `courses` (
+  `Course_Id` int(11) NOT NULL,
   `Course_Code` varchar(10) NOT NULL,
   `Course_Title` varchar(45) NOT NULL,
   `Credit` int(11) NOT NULL,
-  `Semester_Id` int(11) NOT NULL,
-  PRIMARY KEY (`Course_Id`),
-  KEY `Semester_Id` (`Semester_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+  `Semester_Id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `courses`
@@ -71,12 +71,11 @@ INSERT INTO `courses` (`Course_Id`, `Course_Code`, `Course_Title`, `Credit`, `Se
 -- Table structure for table `department`
 --
 
-CREATE TABLE IF NOT EXISTS `department` (
-  `Dept_Id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `department` (
+  `Dept_Id` int(11) NOT NULL,
   `Dept_Name` varchar(20) NOT NULL,
-  `short_name` varchar(20) NOT NULL,
-  PRIMARY KEY (`Dept_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `short_name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `department`
@@ -93,14 +92,11 @@ INSERT INTO `department` (`Dept_Id`, `Dept_Name`, `short_name`) VALUES
 -- Table structure for table `enrolled_courses`
 --
 
-CREATE TABLE IF NOT EXISTS `enrolled_courses` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `enrolled_courses` (
+  `id` int(10) UNSIGNED NOT NULL,
   `Course_Id` int(11) DEFAULT NULL,
-  `User_Id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `Course_Id` (`Course_Id`),
-  KEY `User_Id` (`User_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5508 ;
+  `User_Id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `enrolled_courses`
@@ -505,7 +501,182 @@ INSERT INTO `enrolled_courses` (`id`, `Course_Id`, `User_Id`) VALUES
 (5504, 4, 207),
 (5505, 12, 207),
 (5506, 23, 207),
-(5507, 5, 207);
+(5507, 5, 207),
+(5508, 18, 208),
+(5509, NULL, 208),
+(5510, 20, 208),
+(5511, 21, 208),
+(5512, 22, 208),
+(5513, 19, 208),
+(5514, NULL, 208),
+(5515, 18, 209),
+(5516, NULL, 209),
+(5517, 20, 209),
+(5518, 21, 209),
+(5519, 22, 209),
+(5520, 19, 209),
+(5521, NULL, 209),
+(5522, 18, 210),
+(5523, NULL, 210),
+(5524, 20, 210),
+(5525, 15, 210),
+(5526, 21, 210),
+(5527, 22, 210),
+(5528, 19, 210),
+(5529, NULL, 210),
+(5530, 18, 211),
+(5531, NULL, 211),
+(5532, 20, 211),
+(5533, 15, 211),
+(5534, 21, 211),
+(5535, 22, 211),
+(5536, 19, 211),
+(5537, NULL, 211),
+(5538, 18, 212),
+(5539, 6, 212),
+(5540, NULL, 212),
+(5541, 20, 212),
+(5542, 21, 212),
+(5543, 22, 212),
+(5544, 19, 212),
+(5545, NULL, 212),
+(5546, 18, 213),
+(5547, NULL, 213),
+(5548, 20, 213),
+(5549, 15, 213),
+(5550, 21, 213),
+(5551, 22, 213),
+(5552, 19, 213),
+(5553, NULL, 213),
+(5554, 18, 214),
+(5555, 6, 214),
+(5556, NULL, 214),
+(5557, 20, 214),
+(5558, 21, 214),
+(5559, 22, 214),
+(5560, 19, 214),
+(5561, NULL, 214),
+(5562, 18, 215),
+(5563, NULL, 215),
+(5564, 20, 215),
+(5565, 15, 215),
+(5566, 21, 215),
+(5567, 22, 215),
+(5568, 19, 215),
+(5569, NULL, 215),
+(5570, 18, 216),
+(5571, 6, 216),
+(5572, NULL, 216),
+(5573, 20, 216),
+(5574, 21, 216),
+(5575, 22, 216),
+(5576, 19, 216),
+(5577, NULL, 216),
+(5578, 18, 217),
+(5579, NULL, 217),
+(5580, 20, 217),
+(5581, 15, 217),
+(5582, 21, 217),
+(5583, 22, 217),
+(5584, 19, 217),
+(5585, NULL, 217),
+(5586, 18, 218),
+(5587, NULL, 218),
+(5588, 20, 218),
+(5589, 21, 218),
+(5590, 22, 218),
+(5591, 19, 218),
+(5592, NULL, 218),
+(5593, 18, 219),
+(5594, NULL, 219),
+(5595, 20, 219),
+(5596, 21, 219),
+(5597, 22, 219),
+(5598, 19, 219),
+(5599, NULL, 219),
+(5600, 18, 220),
+(5601, 6, 220),
+(5602, NULL, 220),
+(5603, 20, 220),
+(5604, 21, 220),
+(5605, 22, 220),
+(5606, 19, 220),
+(5607, NULL, 220),
+(5608, 18, 221),
+(5609, 6, 221),
+(5610, NULL, 221),
+(5611, 20, 221),
+(5612, 21, 221),
+(5613, 22, 221),
+(5614, 19, 221),
+(5615, NULL, 221),
+(5616, 18, 222),
+(5617, 6, 222),
+(5618, NULL, 222),
+(5619, 20, 222),
+(5620, 21, 222),
+(5621, 22, 222),
+(5622, 19, 222),
+(5623, NULL, 222),
+(5624, 18, 223),
+(5625, 6, 223),
+(5626, NULL, 223),
+(5627, 20, 223),
+(5628, 21, 223),
+(5629, 22, 223),
+(5630, 19, 223),
+(5631, NULL, 223),
+(5632, 18, 224),
+(5633, NULL, 224),
+(5634, 20, 224),
+(5635, 15, 224),
+(5636, 21, 224),
+(5637, 22, 224),
+(5638, 19, 224),
+(5639, NULL, 224),
+(5640, 18, 225),
+(5641, NULL, 225),
+(5642, 20, 225),
+(5643, 21, 225),
+(5644, 22, 225),
+(5645, 19, 225),
+(5646, NULL, 225),
+(5647, 12, 226),
+(5648, 20, 226),
+(5649, 21, 226),
+(5650, 22, 226),
+(5651, 19, 226),
+(5652, NULL, 226),
+(5653, 18, 227),
+(5654, NULL, 227),
+(5655, 20, 227),
+(5656, 15, 227),
+(5657, 21, 227),
+(5658, 22, 227),
+(5659, 19, 227),
+(5660, NULL, 227),
+(5661, 18, 228),
+(5662, NULL, 228),
+(5663, 20, 228),
+(5664, 21, 228),
+(5665, 22, 228),
+(5666, 19, 228),
+(5667, NULL, 228),
+(5668, 18, 229),
+(5669, 6, 229),
+(5670, NULL, 229),
+(5671, 20, 229),
+(5672, 21, 229),
+(5673, 22, 229),
+(5674, 19, 229),
+(5675, NULL, 229),
+(5676, 6, 230),
+(5677, 5, 230),
+(5678, 20, 230),
+(5679, 21, 230),
+(5680, 22, 230),
+(5681, 19, 230),
+(5682, NULL, 230);
 
 -- --------------------------------------------------------
 
@@ -513,31 +684,28 @@ INSERT INTO `enrolled_courses` (`id`, `Course_Id`, `User_Id`) VALUES
 -- Table structure for table `notification`
 --
 
-CREATE TABLE IF NOT EXISTS `notification` (
-  `Notif_Id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `notification` (
+  `Notif_Id` int(11) NOT NULL,
   `Msg` varchar(100) NOT NULL,
   `Checkpoint` tinyint(1) NOT NULL COMMENT '1: Unread, 0: read',
   `User_Id` int(11) NOT NULL,
-  `p_id` int(10) unsigned DEFAULT NULL,
-  `time_rec` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`Notif_Id`),
-  KEY `User_Id` (`User_Id`),
-  KEY `notification_ibfk_2` (`p_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=76 ;
+  `p_id` int(10) UNSIGNED DEFAULT NULL,
+  `time_rec` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `notification`
 --
 
 INSERT INTO `notification` (`Notif_Id`, `Msg`, `Checkpoint`, `User_Id`, `p_id`, `time_rec`) VALUES
-(19, 'jhgjgjhgjhgjhghgj', 1, 151, 6, '2017-07-04 08:39:09'),
+(19, 'jhgjgjhgjhgjhghgj', 0, 3, 6, '2017-07-04 08:39:09'),
 (20, 'jhgjgjhgjhgjhghgj', 1, 152, 6, '2017-07-04 08:39:09'),
 (21, 'jhgjgjhgjhgjhghgj', 1, 153, 6, '2017-07-04 08:39:09'),
-(22, 'jhgjgjhgjhgjhghgj', 1, 154, 6, '2017-07-04 08:39:09'),
-(23, 'jhgjgjhgjhgjhghgj', 1, 155, 6, '2017-07-04 08:39:09'),
+(22, 'jhgjgjhgjhgjhghgj', 0, 154, 6, '2017-07-04 08:39:09'),
+(23, 'jhgjgjhgjhgjhghgj', 0, 155, 6, '2017-07-04 08:39:09'),
 (24, 'jhgjgjhgjhgjhghgj', 1, 156, 6, '2017-07-04 08:39:09'),
 (25, 'jhgjgjhgjhgjhghgj', 1, 157, 6, '2017-07-04 08:39:09'),
-(26, 'jhgjgjhgjhgjhghgj', 1, 158, 6, '2017-07-04 08:39:09'),
+(26, 'jhgjgjhgjhgjhghgj', 0, 158, 6, '2017-07-04 08:39:09'),
 (27, 'jhgjgjhgjhgjhghgj', 1, 159, 6, '2017-07-04 08:39:10'),
 (28, 'jhgjgjhgjhgjhghgj', 1, 160, 6, '2017-07-04 08:39:10'),
 (29, 'jhgjgjhgjhgjhghgj', 1, 161, 6, '2017-07-04 08:39:10'),
@@ -594,15 +762,13 @@ INSERT INTO `notification` (`Notif_Id`, `Msg`, `Checkpoint`, `User_Id`, `p_id`, 
 -- Table structure for table `notification_statics`
 --
 
-CREATE TABLE IF NOT EXISTS `notification_statics` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `notification_type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1: system Notification, 2: Teacher Notification',
+CREATE TABLE `notification_statics` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `notification_type` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '1: system Notification, 2: Teacher Notification',
   `course` varchar(512) NOT NULL DEFAULT 'ALL',
   `sender_id` int(11) DEFAULT NULL,
-  `sent_date` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sender_id` (`sender_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `sent_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `notification_statics`
@@ -617,24 +783,22 @@ INSERT INTO `notification_statics` (`id`, `notification_type`, `course`, `sender
 -- Table structure for table `profile`
 --
 
-CREATE TABLE IF NOT EXISTS `profile` (
-  `Profile_Id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `profile` (
+  `Profile_Id` int(11) NOT NULL,
   `Fname` varchar(20) NOT NULL,
   `Lname` varchar(20) NOT NULL,
   `Address` varchar(40) NOT NULL,
   `ContactNo` varchar(11) NOT NULL,
   `Email` varchar(25) NOT NULL,
-  `User_Id` int(11) NOT NULL,
-  PRIMARY KEY (`Profile_Id`),
-  KEY `User_Id` (`User_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `User_Id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `profile`
 --
 
 INSERT INTO `profile` (`Profile_Id`, `Fname`, `Lname`, `Address`, `ContactNo`, `Email`, `User_Id`) VALUES
-(1, 'siki', 'sani', 'islamabadian', '03457677996', 'ch.sikandar996@gmail.com', 3);
+(1, 'siki', 'bhai', 'faisalabad', '03008765365', 'dsfsdj@gmail.com', 3);
 
 -- --------------------------------------------------------
 
@@ -642,14 +806,13 @@ INSERT INTO `profile` (`Profile_Id`, `Fname`, `Lname`, `Address`, `ContactNo`, `
 -- Table structure for table `reports`
 --
 
-CREATE TABLE IF NOT EXISTS `reports` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `all_time` mediumint(8) unsigned NOT NULL DEFAULT '1',
-  `teacher` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `student` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `department` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+CREATE TABLE `reports` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `all_time` mediumint(8) UNSIGNED NOT NULL DEFAULT '1',
+  `teacher` mediumint(8) UNSIGNED NOT NULL DEFAULT '0',
+  `student` mediumint(8) UNSIGNED NOT NULL DEFAULT '0',
+  `department` mediumint(8) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reports`
@@ -664,13 +827,11 @@ INSERT INTO `reports` (`id`, `all_time`, `teacher`, `student`, `department`) VAL
 -- Table structure for table `security_keys`
 --
 
-CREATE TABLE IF NOT EXISTS `security_keys` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `security_keys` (
+  `id` int(10) UNSIGNED NOT NULL,
   `User_Id` int(11) NOT NULL,
-  `key` varchar(256) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`User_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `key` varchar(256) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -678,13 +839,11 @@ CREATE TABLE IF NOT EXISTS `security_keys` (
 -- Table structure for table `semester`
 --
 
-CREATE TABLE IF NOT EXISTS `semester` (
-  `Semester_Id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `semester` (
+  `Semester_Id` int(11) NOT NULL,
   `Semester_Name` varchar(10) NOT NULL,
-  `Dept_Id` int(11) NOT NULL,
-  PRIMARY KEY (`Semester_Id`),
-  KEY `Dept_Id` (`Dept_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+  `Dept_Id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `semester`
@@ -710,18 +869,17 @@ INSERT INTO `semester` (`Semester_Id`, `Semester_Name`, `Dept_Id`) VALUES
 -- Table structure for table `timetable`
 --
 
-CREATE TABLE IF NOT EXISTS `timetable` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `timetable` (
+  `id` int(10) UNSIGNED NOT NULL,
   `course` varchar(160) NOT NULL,
   `room` varchar(16) NOT NULL,
   `day` varchar(10) NOT NULL,
   `semester` varchar(3) NOT NULL,
   `time` varchar(12) NOT NULL,
   `cstring` varchar(160) NOT NULL,
-  `notification` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1: Send Notification, 0: No Notification',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1: Keep, 2: Delete',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2052 ;
+  `notification` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '1: Send Notification, 0: No Notification',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '1: Keep, 2: Delete'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `timetable`
@@ -939,16 +1097,14 @@ INSERT INTO `timetable` (`id`, `course`, `room`, `day`, `semester`, `time`, `cst
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `User_Id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `User_Id` int(11) NOT NULL,
   `Username` varchar(20) NOT NULL,
   `Password` varchar(32) NOT NULL,
   `Type` int(1) NOT NULL COMMENT '1: Admin, 2: Teacher, 3: Student',
   `Reg_Id` varchar(11) NOT NULL,
-  `Semester_Id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`User_Id`),
-  KEY `Semester_Id` (`Semester_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=208 ;
+  `Semester_Id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -1014,8 +1170,170 @@ INSERT INTO `users` (`User_Id`, `Username`, `Password`, `Type`, `Reg_Id`, `Semes
 (204, 'MUZAMI245', '17dcbf15cfe1d2ac82d8ca92d12ef3d6', 3, '4071613058', 2),
 (205, 'AQIB_R736', '70fd93cbe6090474f19cd7e2ce33f065', 3, '4071613059', 2),
 (206, 'KHALIL599', '8b41189501391bb93fd7f73025f57451', 3, '4071613061', 2),
-(207, 'SHAKIR866', '85af5239bd26f53cfb3d6617b69d6ea4', 3, '4071613062', 2);
+(207, 'SHAKIR866', '85af5239bd26f53cfb3d6617b69d6ea4', 3, '4071613062', 2),
+(208, 'NATASH71', '743caf8ff984aa19bc39dadce341c11f', 3, '4071513001', 4),
+(209, 'MEHWIS935', '927e915ce6d444bae491e406b1877e34', 3, '4071513002', 4),
+(210, 'ARSLAN929', 'cfecb89b7900250de46b0dbb8453298f', 3, '4071513003', 4),
+(211, 'WAJAHA512', 'b43e57f1eb0af4ead1b6284798b96740', 3, '4071513005', 4),
+(212, 'NIDA_W262', 'fc6f7adbc7cf0355a4565038d3731141', 3, '4071513008', 4),
+(213, 'UROOJ_222', '03758f633f354ed40f86195e7433a3e4', 3, '4071513016', 4),
+(214, 'WASI_H973', '233de60ee80dd1397c0fd8ab621dc96a', 3, '4071513018', 4),
+(215, 'SADIA_18', '8e5ba1cdb873ee1da29d018b35c5e610', 3, '4071513019', 4),
+(216, 'MUAHMA102', '702e1d2b6f07937a71e025e2a67d8943', 3, '4071513020', 4),
+(217, 'BILAL_764', 'feb1adafb4db5a5f58eff0e591f3b8ac', 3, '4071513025', 4),
+(218, 'ALI_AZ492', '49840b5e67d71e16dd93239744a584cd', 3, '4071513026', 4),
+(219, 'MUHAMM389', '0a65c5a197a32cdfaa69f01188ca5c3d', 3, '4071513029', 4),
+(220, 'MUHAMM25', '9c140ac30ccdb01864a0bac7037ef34c', 3, '4071513036', 4),
+(221, 'IFZA_G755', 'f20bbebd0b60c63413356b088b80fe82', 3, '4071513037', 4),
+(222, 'TEHREE353', '256b7d0506a06dc7df8df6ed10f75b08', 3, '4071513039', 4),
+(223, 'SYED_A764', 'a1bc529e401be0151c9cfa39d2333afa', 3, '4071513040', 4),
+(224, 'WARDAH979', '5d05aa6a66e234cc3b6bd17a5760eda4', 3, '4071513042', 4),
+(225, 'ABDUL_151', '7f94046fa7fa3872dbaebbffb3f97d9c', 3, '4071513044', 4),
+(226, 'AQIB_Z798', 'c1be3a7cd5e8e3ebe61c7bbaa60232af', 3, '4071513045', 4),
+(227, 'SAIF_U142', '3509e91821cd3de52bed897265e962d8', 3, '4071513050', 4),
+(228, 'AHSAN_823', 'd031056a798ca2b2206dcd81ba61599a', 3, '4071513052', 4),
+(229, 'USWA_A495', '0da0af28f9c0f220aa732bafa6de4f14', 3, '4071513058', 4),
+(230, 'ALI_YA176', 'b6fb5c6defb1d6a887b38ebe74b7cfa5', 3, '4071513059', 4);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`Course_Id`),
+  ADD KEY `Semester_Id` (`Semester_Id`);
+
+--
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`Dept_Id`);
+
+--
+-- Indexes for table `enrolled_courses`
+--
+ALTER TABLE `enrolled_courses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Course_Id` (`Course_Id`),
+  ADD KEY `User_Id` (`User_Id`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`Notif_Id`),
+  ADD KEY `User_Id` (`User_Id`),
+  ADD KEY `notification_ibfk_2` (`p_id`);
+
+--
+-- Indexes for table `notification_statics`
+--
+ALTER TABLE `notification_statics`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sender_id` (`sender_id`);
+
+--
+-- Indexes for table `profile`
+--
+ALTER TABLE `profile`
+  ADD PRIMARY KEY (`Profile_Id`),
+  ADD KEY `User_Id` (`User_Id`);
+
+--
+-- Indexes for table `reports`
+--
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `security_keys`
+--
+ALTER TABLE `security_keys`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`User_Id`);
+
+--
+-- Indexes for table `semester`
+--
+ALTER TABLE `semester`
+  ADD PRIMARY KEY (`Semester_Id`),
+  ADD KEY `Dept_Id` (`Dept_Id`);
+
+--
+-- Indexes for table `timetable`
+--
+ALTER TABLE `timetable`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`User_Id`),
+  ADD KEY `Semester_Id` (`Semester_Id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `Course_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `Dept_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `enrolled_courses`
+--
+ALTER TABLE `enrolled_courses`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5683;
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `Notif_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+--
+-- AUTO_INCREMENT for table `notification_statics`
+--
+ALTER TABLE `notification_statics`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `profile`
+--
+ALTER TABLE `profile`
+  MODIFY `Profile_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `reports`
+--
+ALTER TABLE `reports`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `security_keys`
+--
+ALTER TABLE `security_keys`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `semester`
+--
+ALTER TABLE `semester`
+  MODIFY `Semester_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `timetable`
+--
+ALTER TABLE `timetable`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2052;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `User_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=231;
 --
 -- Constraints for dumped tables
 --
@@ -1030,15 +1348,15 @@ ALTER TABLE `courses`
 -- Constraints for table `enrolled_courses`
 --
 ALTER TABLE `enrolled_courses`
-  ADD CONSTRAINT `enrolled_courses_ibfk_4` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `enrolled_courses_ibfk_3` FOREIGN KEY (`Course_Id`) REFERENCES `courses` (`Course_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `enrolled_courses_ibfk_3` FOREIGN KEY (`Course_Id`) REFERENCES `courses` (`Course_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `enrolled_courses_ibfk_4` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `notification`
 --
 ALTER TABLE `notification`
-  ADD CONSTRAINT `notification_ibfk_3` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`p_id`) REFERENCES `notification_statics` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`p_id`) REFERENCES `notification_statics` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `notification_ibfk_3` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `notification_statics`
@@ -1056,7 +1374,7 @@ ALTER TABLE `profile`
 -- Constraints for table `security_keys`
 --
 ALTER TABLE `security_keys`
-  ADD CONSTRAINT `security_keys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `security_keys_ibfk_1` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `semester`
@@ -1069,6 +1387,7 @@ ALTER TABLE `semester`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`Semester_Id`) REFERENCES `semester` (`Semester_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

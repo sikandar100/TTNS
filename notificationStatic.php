@@ -121,16 +121,21 @@ if(isset($_GET['static'])){
 							$str = "";
 							while($row = mysqli_fetch_assoc($query)){
 								
-								$sql = "SELECT u.User_Id, u.Semester_Id, p.Fname, p.Lname, s.Semester_Name, d.Dept_Name FROM `users` u JOIN `profile` p JOIN `semester` s JOIN `department` d ON u.User_Id = ".$row['User_Id'];
+								$sql = "SELECT Fname, Lname FROM `profile` WHERE User_Id = ".$row['User_Id'];
 										
 								$query2 = mysqli_query($conn,$sql);
 								$reuslt = mysqli_fetch_assoc($query2);
 								
+								$sql = "SELECT u.User_Id, u.Semester_Id, s.Semester_Name, d.Dept_Name FROM `users` u JOIN `semester` s JOIN `department` d WHERE u.User_Id = ".$row['User_Id'];
+										
+								$query2 = mysqli_query($conn,$sql);
+								$reuslt2 = mysqli_fetch_assoc($query2);
+								
 								$str .= "<tr>";
 								$str .= "<td>".$reuslt['Fname']."</td>";
 								$str .= "<td>".$reuslt['Lname']."</td>";
-								$str .= "<td>".$reuslt['Dept_Name']."</td>";
-								$str .= "<td>".$reuslt['Semester_Name']."</td>";
+								$str .= "<td>".$reuslt2['Dept_Name']."</td>";
+								$str .= "<td>".$reuslt2['Semester_Name']."</td>";
 								$str .= "</tr>";
 							}
 							echo $str;

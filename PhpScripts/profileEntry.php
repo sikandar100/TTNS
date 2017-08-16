@@ -1,4 +1,5 @@
 <?php
+define('INCLUDE_CHECK','hmm');
 include('connection.php');
 include ('session.php');
 

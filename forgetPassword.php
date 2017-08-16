@@ -6,7 +6,7 @@ if(isset($_SESSION['login_user']))
 	header('Location: '.$dir.'welcome.php');
 	exit;
 }
-
+define('INCLUDE_CHECK','hmm');
 include "PhpScripts/connection.php";
 if(isset($_GET['newPass'])){
 	$_GET['newPass'] = preg_replace('/[^a-fA-F0-9]/', '', $_GET['newPass']);

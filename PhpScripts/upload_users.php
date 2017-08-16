@@ -1,5 +1,6 @@
 <?php
 $dir = isset($dir) ? $dir : '../';
+define('INCLUDE_CHECK', 'hmm');
 include('connection.php');
 include ('session.php');
 //----------------------File Upload Logic-----------------------
@@ -24,13 +25,14 @@ include ('session.php');
       
       if(empty($errors)==true){
          move_uploaded_file($file_tmp,$dir."uploaded/temp/".$file_name);
-         echo "Success" . "<br>";
+         header('Location: ../registerUsers.php?error=1');
       }else{
-         print_r($errors);
+         header('Location: ../registerUsers.php?error='.urlencode(implode('<br>',$errors)));
 		 exit;
       }
+   } else {
+		die('forbiden access');
    }
-   
    //----------------------------------File Reading And Parsing------------------------------
    $html = file_get_contents($dir."uploaded/temp/".$file_name);
    $dom = new DOMDocument;

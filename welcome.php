@@ -1,5 +1,6 @@
 <?php
 $dir = "./";
+define('INCLUDE_CHECK','hmm');
 include ('PhpScripts/session.php');
 include ('PhpScripts/connection.php');
 ?>

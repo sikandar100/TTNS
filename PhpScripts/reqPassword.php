@@ -6,7 +6,7 @@ if(isset($_SESSION['login_user']))
 	header('Location: '.$dir.'welcome.php');
 	exit;
 }
-
+define('INCLUDE_CHECK','hmm');
 include('connection.php');
 
 if(isset($_POST['username']) && !empty($_POST['username'])){

@@ -31,7 +31,45 @@ include('PhpScripts/connection.php');
 .footer{
 	margin-top:30px;
 }
+#status
+{
+	text-align: center;
+	 color: red;
+	 font-size: 40px;
+	
+}
 </style>
+<script>
+function _(id){ return document.getElementById(id); }
+function submitForm()
+{
+	_("mybtn").disabled = true;
+	_("status").innerHTML = 'please wait ...';
+	var formdata = new FormData();
+	formdata.append( "username", _("username").value );
+	formdata.append( "password", _("password").value );
+	formdata.append( "regId", _("regId").value );
+	var ajax = new XMLHttpRequest();
+	ajax.open( "POST", "PhpScripts/newTeacher.php" );
+	ajax.onreadystatechange = function() {
+		if(ajax.readyState == 4 && ajax.status == 200) {
+			var response = JSON.parse(ajax.responseText);
+			if(response.success){
+				_("status").innerHTML = response.success;
+				_("mybtn").disabled = false;
+				_("teacherForm").reset();
+				setTimeout(function(){
+					_("status").innerHTML = '';
+				}, 4000);
+			} else {
+				_("status").innerHTML = response.error;
+				_("mybtn").disabled = false;
+			}
+		}
+	}
+	ajax.send( formdata );
+}
+</script>
 </head>
 <body>
 <div class="container col-md-12">
@@ -75,6 +113,15 @@ include('PhpScripts/connection.php');
 		</ul>
 		<div class ="col-md-5">
 		</br>
+		<?php
+			if(isset($_GET['error'])){
+				if((int)$_GET['error'] === 1){
+					echo '<div class="alert alert-success" role="alert">User registered successfully</div>';
+				} else {
+					echo '<div class="alert alert-danger" role="alert">'.$_GET['error'].'</div>';
+				}
+			}
+		?>
 			<form  class="form-horizontal"  action="PhpScripts/upload_users.php" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="dept" class="col-sm-4 control-label">Department:</label>
@@ -120,19 +167,18 @@ include('PhpScripts/connection.php');
 		<div class ="col-md-4">
 		</br>
 		<h3>Register Single Teacher From This Form</h3>
-		<form method="post" class="form-horizontal" onsubmit="submitForm(); return false;">
-		<p style="font-size:250%;">Profile:</p>
-		<table>
-        <tr><td><p style="font-size:150%;">Username:</p></td><td> <input type="text" id="Fname" name="Fname" placeholder="FirstName" required></p></td></tr>
-        <tr><td><p style="font-size:150%;">Password:</p></td> <td><input type="text" id="Lname" name="Lname" placeholder="LastName" required></p></td></tr>
-        <tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" id="Address" name="Address" placeholder="Address" required></p></td></tr>
-        </table>
-        <p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
-        <input style="font-size:150%;" type="submit" id="mybtn" value="Submit"></p>
+		<form method="post" class="form-horizontal" id="teacherForm" onsubmit="submitForm(); return false;">
+			<p style="font-size:250%;">Profile:</p>
+			<table>
+				<tr><td><p style="font-size:150%;">Username:</p></td><td> <input type="text" id="username" name="username" placeholder="Username" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">Password:</p></td> <td><input type="password" id="password" name="password" placeholder="Password" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" id="regId" name="regId" required></p></td></tr>
+			</table>
+			<p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
+			<input style="font-size:150%;" type="submit" id="mybtn" value="Submit"></p>
          </form>
-
+		<p id = "status"></p>
 		</div>
-    
     <div class="footer col-md-12">
    	 <p id="foot">Copy Rights Reserved &copy; Sikandar Waheed</p>
     </div>
