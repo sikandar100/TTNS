@@ -29,6 +29,8 @@ mysqli_real_escape_string($conn, $RegId);
 
 $query = mysqli_query($conn,"SELECT Reg_Id FROM users WHERE Username = '$user'");
 $row = mysqli_fetch_assoc($query);
+
+$msg = array();
 if(strcmp($row['Reg_Id'],$RegId)==0)
 {
 	$quer = mysqli_query($conn,"SELECT User_Id FROM users WHERE Username = '$user'");
@@ -40,23 +42,27 @@ if(strcmp($row['Reg_Id'],$RegId)==0)
 	{
 		$sql = "UPDATE profile SET Fname='$Fname', Lname='$Lname', Address='$Address', ContactNo='$ContactNo', Email='$Email' WHERE User_Id='$chkId'";
 		mysqli_query($conn, $sql);
-		header('Location: '.$dir.'editProfile.php');
-		exit;
-		
+		//header('Location: '.$dir.'editProfile.php');
+		//exit;
+		$msg["success"] = "Your Profile Has Been Successfully Updated:";
 	}
 	else
 	{
 		$sql = "INSERT INTO profile (Fname,Lname,Address,ContactNo,Email,User_Id) VALUES ('$Fname','$Lname','$Address','$ContactNo','$Email','$chkId')";
 		mysqli_query($conn, $sql);
-		header('Location: '.$dir.'editProfile.php');
-		exit;
+		//header('Location: '.$dir.'editProfile.php');
+		//exit;
+		$msg["success"] = "Your Profile Has Been Successfully Inserted or Created:";
 	}
 	
 }
 else
 {
-	echo "Provided RegistrationID is not correct:";
-	header('Location: '.$dir.'editProfile.php');
-		exit;
-	
+	//echo "Provided RegistrationID is not correct:";
+	//header('Location: '.$dir.'editProfile.php');
+	//exit;
+	$msg["error"]= "Provided registration Id did not Match:";
 }
+echo json_encode($msg);
+
+?>

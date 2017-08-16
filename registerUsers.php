@@ -1,6 +1,7 @@
 <?php
 $dir = "./";
 include ('PhpScripts/session.php');
+include('PhpScripts/connection.php');
 ?>
 <!doctype html>
 <html>
@@ -76,39 +77,65 @@ include ('PhpScripts/session.php');
 		</ul>';
 	}
 		?>
-		<div class = "registerusers col-md-10">
-			<div class = " divide1 col-md-5">
-				<div class="dropdown">
-					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Department
-					<span class="caret"></span></button>
-					<ul class="dropdown-menu">
-						<li><a href="#">CS</a></li>
-						<li><a href="#">IT</a></li>
-						<li><a href="#">Eco</a></li>
-					</ul>
+		<div class ="col-md-5">
+		</br>
+			<form  class="form-horizontal"  action="PhpScripts/upload_users.php" method="post" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="dept" class="col-sm-4 control-label">Time Table Type:</label>
+					<div class="col-sm-8">
+						<select class="form-control" name="dept" id="dept">
+						<?php
+						$str="";
+						$query = mysqli_query($conn,"SELECT * FROM department WHERE 1");
+						while($row=mysqli_fetch_assoc($query))
+						{
+							$str .= '<option value="'.$row['Dept_Id'].'">'.$row['Dept_Name'].'</option>';
+						}
+						echo $str;
+						?>
+						</select>
+					</div>
 				</div>
-				</br></br></br></br></br>
-				<div class="dropdown">
-					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Semester
-					<span class="caret"></span></button>
-					<ul class="dropdown-menu">
-						<li><a href="#">1st</a></li>
-						<li><a href="#">2nd</a></li>
-						<li><a href="#">3rd</a></li>
-						<li><a href="#">4th</a></li>
-					</ul>
+				<div class="form-group">
+					<label for="semester" class="col-sm-4 control-label">Reason:</label>
+					<div class="col-sm-8">
+						<select class="form-control" name="semester" id="semester">
+							<option value="1st">1st</option>
+							<option value="2nd">2nd</option>
+							<option value="3rd">3rd</option>
+							<option value="4th">4th</option>
+							</ul>
+						</select>
+					</div>
 				</div>
-			</div>
-			
-			<div class = " divide2 col-md-5">
-				<form action="PhpScripts/upload_users.php" method="post" enctype="multipart/form-data">
-					Select File to upload:
-					<input type="file" name="fileToUpload" id="fileToUpload"></br></br>
-					<input type="submit" value="Upload" name="submit">
-				</form>
-			</div>
+				<div class="form-group">
+					<label for="fileToUpload" class="col-sm-4 control-label">Select File to upload:</label>
+					<div class="col-sm-8">
+						<input type="file" name="fileToUpload" id="fileToUpload">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-12">
+						<input class="pull-right" type="submit" value="Upload" name="submit">
+					</div>
+				</div>
+			</form>
 		</div>
-    </div>
+		<div class ="col-md-4">
+		</br>
+		<h3>Register Single Teacher From This Form</h3>
+		<form method="post" class="form-horizontal" onsubmit="submitForm(); return false;">
+		<p style="font-size:250%;">Profile:</p>
+		<table>
+        <tr><td><p style="font-size:150%;">Username:</p></td><td> <input type="text" id="Fname" name="Fname" placeholder="FirstName" required></p></td></tr>
+        <tr><td><p style="font-size:150%;">Password:</p></td> <td><input type="text" id="Lname" name="Lname" placeholder="LastName" required></p></td></tr>
+        <tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" id="Address" name="Address" placeholder="Address" required></p></td></tr>
+        </table>
+        <p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
+        <input style="font-size:150%;" type="submit" id="mybtn" value="Submit"></p>
+         </form>
+
+		</div>
     
     <div class="footer col-md-12">
    	 <p id="foot">Copy Rights Reserved &copy; Sikandar Waheed</p>

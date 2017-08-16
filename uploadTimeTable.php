@@ -84,7 +84,7 @@ include ('PhpScripts/session.php');
 						</div>
 					</div>
 					<div class="form-group" id="askedMore" style="display:none;">
-						<label for="fileToUpload" class="col-sm-4 control-label">Reason:</label>
+						<label for="reason" class="col-sm-4 control-label">Reason:</label>
 						<div class="col-sm-8">
 							<select class="form-control" name="reason" id="reason">
 								<option value="1">Teacher Clashes</option>

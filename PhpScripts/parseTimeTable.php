@@ -34,7 +34,7 @@ include ('session.php');
 			generate_notifications(false);
 		}
 		if (isset($_SERVER["HTTP_REFERER"])) {
-			//header("Location: " . $_SERVER["HTTP_REFERER"]);
+			header("Location: " . $_SERVER["HTTP_REFERER"]);
 		}
       }else{
          print_r($errors);
@@ -237,6 +237,7 @@ function update_timetable($timetable){
 
 function generate_notifications($new = true){
 	global $conn;
+	
 	if($new){
 		$sql = "SELECT * FROM `users` WHERE `Type` = 3";
 		$result = mysqli_query($conn, $sql);

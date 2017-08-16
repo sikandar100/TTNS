@@ -14,21 +14,23 @@ if ($conn)
 	$password = $_POST['password'];
 	$type = $_POST['radiobtn'];
 	
-	stripslashes($username);
-	stripslashes($password);
-	stripslashes($type);
+	$username =stripslashes($username);
+	$password =stripslashes($password);
+	$type =stripslashes($type);
 	
-	mysqli_real_escape_string($conn, $username);
-	mysqli_real_escape_string($conn, $password);
-	mysqli_real_escape_string($conn, $type);
+	$username = mysqli_real_escape_string($conn, $username);
+	$password = mysqli_real_escape_string($conn, $password);
+	$type = mysqli_real_escape_string($conn, $type);
 	
 	$msg = array();
 	$query = mysqli_query($conn,"SELECT * FROM users WHERE Username = '$username' AND Password = '$password' AND Type = '$type'");
 	$row = mysqli_num_rows($query);
 	if($row==1)
 	{
-		$_SESSION['login_user']=$username;
-		$_SESSION['login_type']=$type;
+		$row = mysqli_fetch_assoc($query);
+		$_SESSION['user_id'] = $row['User_Id'];
+		$_SESSION['login_user']= $row['Username'];
+		$_SESSION['login_type']= $row['Type'];
 		$msg["success"] = "true";
 		//header('Location: '.$dir.'welcome.php');
 	}

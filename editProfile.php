@@ -10,7 +10,49 @@ include ('PhpScripts/session.php');
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="CSS/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/homestyle.css" rel="stylesheet" type="text/css">
+
+<script>
+function _(id){ return document.getElementById(id); }
+
+function submitForm()
+{
+	_("mybtn").disabled = true;
+	_("status").innerHTML = 'please wait ...';
+	var formdata = new FormData();
+	formdata.append( "Fname", _("Fname").value );
+	formdata.append( "Lname", _("Lname").value );
+	formdata.append( "Address", _("Address").value );
+	formdata.append( "Contact", _("Contact").value );
+	formdata.append( "Email", _("Email").value );
+	formdata.append( "RegistrationId", _("RegistrationId").value );
+	
+	var ajax = new XMLHttpRequest();
+	ajax.open( "POST", "PhpScripts/profileEntry.php" );
+	ajax.onreadystatechange = function() {
+		if(ajax.readyState == 4 && ajax.status == 200) {
+			var response = JSON.parse(ajax.responseText);
+			if(response.success){
+				_("status").innerHTML = "";
+				_("status").innerHTML = response.success;
+			} else {
+				_("status").innerHTML = response.error;
+				_("mybtn").disabled = false;
+			}
+		}
+	}
+	ajax.send( formdata );
+}
+</script>
 <title>Time Table Notification System</title>
+<style>
+#status
+{
+	text-align: center;
+	 color: red;
+	 font-size: 40px;
+	
+}
+</style>
 </head>
 <body>
 <div class="container col-md-12">
@@ -61,19 +103,21 @@ include ('PhpScripts/session.php');
 		</ul>';
 	}
 		?>
-        <form action="PhpScripts/profileEntry.php" method="post" class="form-horizontal">
+        <form method="post" class="form-horizontal" onsubmit="submitForm(); return false;">
 		<p style="font-size:250%;">Profile:</p>
 		<table>
-        <tr><td><p style="font-size:150%;">FirstName:</p></td><td> <input type="text" name="Fname" placeholder="FirstName"></p></td></tr>
-        <tr><td><p style="font-size:150%;">LastName:</p></td> <td><input type="text" name="Lname" placeholder="LastName"></p></td></tr>
-        <tr><td><p style="font-size:150%;">Address:</p></td><td> <input type="text" name="Address" placeholder="Address"></p></td></tr>
-        <tr><td><p style="font-size:150%;">ContactNo:</p></td><td> <input type="text" name="Contact" placeholder="Contact#"></p></td></tr>
-        <tr><td><p style="font-size:150%;">Email:</p></td><td> <input type="text" name="Email" placeholder="EmailAddress"></p></td></tr>
-        <tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" name="RegistrationId" placeholder="Registration_Id"></p></td></tr>
+        <tr><td><p style="font-size:150%;">FirstName:</p></td><td> <input type="text" id="Fname" name="Fname" placeholder="FirstName" required></p></td></tr>
+        <tr><td><p style="font-size:150%;">LastName:</p></td> <td><input type="text" id="Lname" name="Lname" placeholder="LastName" required></p></td></tr>
+        <tr><td><p style="font-size:150%;">Address:</p></td><td> <input type="text" id="Address" name="Address" placeholder="Address" required></p></td></tr>
+        <tr><td><p style="font-size:150%;">ContactNo:</p></td><td> <input type="text" id="Contact" name="Contact" placeholder="Contact#" required></p></td></tr>
+        <tr><td><p style="font-size:150%;">Email:</p></td><td> <input type="email" id="Email" name="Email" placeholder="EmailAddress" required></p></td></tr>
+        <tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" id="RegistrationId" name="RegistrationId" placeholder="Registration_Id" required></p></td></tr>
        </table>
         <p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
-        <input style="font-size:150%;" type="submit" value="Submit"></p>
+        <input style="font-size:150%;" type="submit" id="mybtn" value="Submit"></p>
          </form>
+		 
+		 <p id = "status"></p>
     </div>
     
     <div class="footer col-md-12">

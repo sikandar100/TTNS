@@ -31,9 +31,9 @@
 
 .content form
 {
-		width:auto;
+		/*width:auto;
 		display:inline-block;	
-		margin-left:25%;
+		margin-left:25%;*/
 }
 /*--------MenuBarNav---------*/
 ul.menu {
@@ -61,3 +61,17 @@ li a:hover:not(.active) {
     color: white;
 }
 /*---------End----------*/
+
+.border-between > [class*='col-']:before {
+   background: #e3e3e3;
+   bottom: 0;
+   content: " ";
+   left: 0;
+   position: absolute;
+   width: 1px;
+   top: 0;
+}
+
+.border-between > [class*='col-']:first-child:before {
+   display: none;
+}
