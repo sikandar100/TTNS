@@ -1,6 +1,6 @@
 <!doctype html>
 <?
-include ('session.php');
+include ('PhpScripts/session.php');
 ?>
 <html>
 <head>

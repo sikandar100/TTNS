@@ -1,9 +1,10 @@
 <?
+echo 'start';
 session_start();
 
-if(session_destroy())
-{
-	header("Location:../index.html");
-}
+session_destroy();
 
+header('Location: index.php');
+
+exit;
 ?>

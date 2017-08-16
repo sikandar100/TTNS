@@ -1,5 +1,5 @@
 <?
-include ('session.php');
+include ('PhpScripts/session.php');
 ?>
 <!doctype html>
 <html>

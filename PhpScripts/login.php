@@ -1,9 +1,9 @@
  <?php
+session_start();
 $servername = "localhost";
 $user = "root";
 $pass = "";
 
-session_start();
 $username = $_POST['username'];
 $password = $_POST['password'];
 $type = $_POST['radiobtn'];
