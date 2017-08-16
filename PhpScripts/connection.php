@@ -1,9 +1,5 @@
 <?php
-echo "hello connection";
-if(!defined("Allow_user"))
-{
-	die('Forbbiden Access');
-}
+
 $servername = "localhost";
 $user = "root";
 $pass = "";

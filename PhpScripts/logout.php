@@ -1,5 +1,5 @@
 <?php
-
+$dir = "../";
 session_start();
 
 session_destroy();

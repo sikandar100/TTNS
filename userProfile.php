@@ -1,7 +1,7 @@
 <?php
 $dir = "./";
-define("Allow_user", true);
-include ('PhpScripts/session.php');
+//include ('PhpScripts/session.php');
+include ('PhpScripts/profileFetch.php');
 ?>
 <!doctype html>
 <html>
@@ -28,9 +28,12 @@ include ('PhpScripts/session.php');
     </div>
     
     <div class="content">
-    	<ul class="menu col-md-3">
-			   <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="#contact">Time Table</a></li>
+    	<?php
+		if($_SESSION['login_type']==3)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
 			  <li><a href="changePassword.php">Change Password</a></li>
 			  <li><a href="userProfile.php">User Profile</a></li>
 			  <li><a href="editProfile.php">Edit Profile</a></li>
@@ -38,39 +41,38 @@ include ('PhpScripts/session.php');
 			  <li><a href="contactUs.php">Contact Us</a></li>
 			  <li><a href="aboutUs.php">About Us</a></li>
 			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>
+		</ul>';
+	}
+	else if ($_SESSION['login_type']==2)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
+			  <li><a href="changePassword.php">Change Password</a></li>
+			  <li><a href="#">Send Notification</a></li>
+			  <li><a href="contactUs.php">Contact Us</a></li>
+			  <li><a href="aboutUs.php">About Us</a></li>
+			  <li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>';
+	}
+	else if ($_SESSION['login_type']==1)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
+			  <li><a href="uploadTimeTable.php">upload TimeTable</a></li>
+			  <li><a href="changePassword.php">Change Password</a></li>
+			  <li><a href="registerUsers.php">Register Users</a></li>
+			  <li><a href="contactUs.php">Contact Us</a></li>
+			  <li><a href="aboutUs.php">About Us</a></li>
+			  <li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>';
+	}
+	?>
 		<div class = "profileTable col-md-6">
 		<h2>Profile:</h2>
 		<table class="table table-hover">
-		<tr>
-		<th>First Name:</th>
-		<th style="font-weight: bold;"></th>
-		</tr>
-		<tr>
-		<th>Last Name:</th>
-		<th style="font-weight: bold;"></th>
-		</tr>
-		<tr>
-		<th>Address:</th>
-		<th style="font-weight: bold;"></th>
-		</tr>
-		<tr>
-		<th>Contact No:</th>
-		<th style="font-weight: bold;"></th>
-		</tr>
-		<tr>
-		<th>Email:</th>
-		<th style="font-weight: bold;"></th>
-		</tr>
-		<tr>
-		<th>Department:</th>
-		<th style="font-weight: bold;"></th>
-		</tr>
-		<tr>
-		<th>StudentId:</th>
-		<th style="font-weight: bold;"></th>
-		</tr>
-	
+		<?php echo $str; ?>
 		</table>
         
 		</div>

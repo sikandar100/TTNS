@@ -1,5 +1,4 @@
 <?php
-define("Allow_user", true);
 include('connection.php');
 include ('session.php');
 
@@ -8,7 +7,6 @@ $Lname = $_POST['Lname'];
 $Address = $_POST['Address'];
 $ContactNo = $_POST['Contact'];
 $Email = $_POST['Email'];
-$Depart = $_POST['Department'];
 $RegId = $_POST['RegistrationId'];
 $user = $_SESSION['login_user'];
 
@@ -17,43 +15,48 @@ stripslashes($Lname);
 stripslashes($Address);
 stripslashes($ContactNo);
 stripslashes($Email);
-stripslashes($Depart);
 stripslashes($RegId);
 
-mysqli_real_escape_string($con, $Fname);
-mysqli_real_escape_string($con, $Lname);
-mysqli_real_escape_string($con, $Address);
-mysqli_real_escape_string($con, $ContactNo);
-mysqli_real_escape_string($con, $Email);
-mysqli_real_escape_string($con, $Depart);
-mysqli_real_escape_string($con, $RegId);
+mysqli_real_escape_string($conn, $Fname);
+mysqli_real_escape_string($conn, $Lname);
+mysqli_real_escape_string($conn, $Address);
+mysqli_real_escape_string($conn, $ContactNo);
+mysqli_real_escape_string($conn, $Email);
+mysqli_real_escape_string($conn, $RegId);
 
 
 
 
-$query = mysqli_query($conn,"SELECT RegistrationNo FROM users WHERE Username = '$user'");
+$query = mysqli_query($conn,"SELECT Reg_Id FROM users WHERE Username = '$user'");
 $row = mysqli_fetch_assoc($query);
-if(strcmp($row['RegistrationNo'],$RegId)==0)
+if(strcmp($row['Reg_Id'],$RegId)==0)
 {
-	$quer = ($conn,"SELECT UserId FROM users WHERE Username = '$user'");
+	$quer = mysqli_query($conn,"SELECT User_Id FROM users WHERE Username = '$user'");
 	$id = mysqli_fetch_assoc($quer);
-	$quer2 = ($conn,"SELECT UserId FROM Profile WHERE UserId = '$id['UserId']'");
+	$chkId = $id['User_Id'];
+	$quer2 = mysqli_query($conn,"SELECT User_Id FROM profile WHERE User_Id = '$chkId'");
 	$profId = mysqli_fetch_assoc($quer2);
-	if( $id['UserId'] == $profId['UserId'] )
+	if( $id['User_Id'] == $profId['User_Id'] )
 	{
-		$sql = "UPDATE profile SET Firstname='$Fname', LastName='$Lname', Address='$Address', ContactNo='ContactNo', Email='$Email', Department='Department' WHERE UserId='$id['UserId']'";
+		$sql = "UPDATE profile SET Fname='$Fname', Lname='$Lname', Address='$Address', ContactNo='$ContactNo', Email='$Email' WHERE User_Id='$chkId'";
 		mysqli_query($conn, $sql);
+		header('Location: '.$dir.'editProfile.php');
+		exit;
 		
 	}
 	else
 	{
-		$sql = "INSERT INTO users (Firstname,LastName,Address,ContactNo,Email,Department,$UserId) VALUES ('$Fname','$Lname','$Address','ContactNo','$Email','Department','$id['UserId']')";
+		$sql = "INSERT INTO profile (Fname,Lname,Address,ContactNo,Email,User_Id) VALUES ('$Fname','$Lname','$Address','$ContactNo','$Email','$chkId')";
 		mysqli_query($conn, $sql);
+		header('Location: '.$dir.'editProfile.php');
+		exit;
 	}
 	
 }
 else
 {
 	echo "Provided RegistrationID is not correct:";
+	header('Location: '.$dir.'editProfile.php');
+		exit;
 	
 }

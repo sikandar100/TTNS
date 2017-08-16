@@ -1,6 +1,7 @@
 <?php
 $dir = "./";
 include ('PhpScripts/session.php');
+include ('PhpScripts/connection.php');
 ?>
 <!doctype html>
 <html>
@@ -9,8 +10,28 @@ include ('PhpScripts/session.php');
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="CSS/bootstrap.min.css" rel="stylesheet">
+<link href="CSS/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="CSS/homestyle.css" rel="stylesheet" type="text/css">
 <title>Time Table Notification System</title>
+<style>
+.welcomenote
+{ 
+	margin-top:8%;
+	margin-bottom:8%;
+}
+h1
+{
+	margin-left:40%;
+}
+h2
+{
+	margin-left:30%;
+}
+h3
+{
+	margin-left:15%;
+}
+</style>
 </head>
 <body>
 <div class="container col-md-12">
@@ -20,7 +41,7 @@ include ('PhpScripts/session.php');
     </div>
     
     <div class="content">
-    	<?php
+	<?php
 		if($_SESSION['login_type']==3)
 	{
     	echo '<ul class="menu col-md-3">
@@ -61,24 +82,61 @@ include ('PhpScripts/session.php');
 		</ul>';
 	}
 		?>
-        <form action="PhpScripts/profileEntry.php" method="post" class="form-horizontal">
-		<p style="font-size:250%;">Profile:</p>
-		<table>
-        <tr><td><p style="font-size:150%;">FirstName:</p></td><td> <input type="text" name="Fname" placeholder="FirstName"></p></td></tr>
-        <tr><td><p style="font-size:150%;">LastName:</p></td> <td><input type="text" name="Lname" placeholder="LastName"></p></td></tr>
-        <tr><td><p style="font-size:150%;">Address:</p></td><td> <input type="text" name="Address" placeholder="Address"></p></td></tr>
-        <tr><td><p style="font-size:150%;">ContactNo:</p></td><td> <input type="text" name="Contact" placeholder="Contact#"></p></td></tr>
-        <tr><td><p style="font-size:150%;">Email:</p></td><td> <input type="text" name="Email" placeholder="EmailAddress"></p></td></tr>
-        <tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" name="RegistrationId" placeholder="Registration_Id"></p></td></tr>
-       </table>
-        <p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
-        <input style="font-size:150%;" type="submit" value="Submit"></p>
-         </form>
+	<div class="col-md-9">
+	<br>
+		<table id="TimeTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Day</th>
+					<th>Semester</th>
+					<th>Subject</th>
+					<th>Room</th>
+					<th>Time</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th>Day</th>
+					<th>Semester</th>
+					<th>Subject</th>
+					<th>Room</th>
+					<th>Time</th>
+				</tr>
+			</tfoot>
+			<tbody>
+				<?php
+					$sql = "SELECT * FROM timetable";
+					$result = mysqli_query($conn,$sql);
+					$TRs = "";
+					while($row = mysqli_fetch_assoc($result)){
+						$TRs .= "<tr>";
+						$TRs .= "<td>".$row['day']."</td>";
+						$TRs .= "<td>".$row['semester']."</td>";
+						$TRs .= "<td>".$row['course']."</td>";
+						$TRs .= "<td>".$row['room']."</td>";
+						$TRs .= "<td>".$row['time']."</td>";
+						$TRs .= "</tr>";
+					}
+					echo $TRs;
+				?>
+			</tbody>
+		</table>
+		<br>
+	</div>
     </div>
     
     <div class="footer col-md-12">
    	 <p id="foot">Copy Rights Reserved &copy; Sikandar Waheed</p>
     </div>
 </div>
+<script src="./JavaScripts/js/jquery.min.js"></script>
+<script src="./JavaScripts/js/bootstrap.min.js"></script>
+<script src="./JavaScripts/js/jquery.dataTables.min.js"></script>
+<script src="./JavaScripts/js/dataTables.bootstrap.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#TimeTable').DataTable();
+	} );
+</script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <?php
 $dir = "./";
-define("Allow_user", true);
 include ('PhpScripts/session.php');
 ?>
 <!doctype html>
@@ -40,9 +39,12 @@ h3
     </div>
     
     <div class="content">
-    	<ul class="menu col-md-3">
+	<?php
+	if($_SESSION['login_type']==3)
+	{
+    	echo '<ul class="menu col-md-3">
 			 <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="#contact">Time Table</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
 			  <li><a href="changePassword.php">Change Password</a></li>
 			  <li><a href="userProfile.php">User Profile</a></li>
 			  <li><a href="editProfile.php">Edit Profile</a></li>
@@ -50,7 +52,34 @@ h3
 			  <li><a href="contactUs.php">Contact Us</a></li>
 			  <li><a href="aboutUs.php">About Us</a></li>
 			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>
+		</ul>';
+	}
+	else if ($_SESSION['login_type']==2)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
+			  <li><a href="changePassword.php">Change Password</a></li>
+			  <li><a href="#">Send Notification</a></li>
+			  <li><a href="contactUs.php">Contact Us</a></li>
+			  <li><a href="aboutUs.php">About Us</a></li>
+			  <li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>';
+	}
+	else if ($_SESSION['login_type']==1)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
+			  <li><a href="uploadTimeTable.php">upload TimeTable</a></li>
+			  <li><a href="changePassword.php">Change Password</a></li>
+			  <li><a href="registerUsers.php">Register Users</a></li>
+			  <li><a href="contactUs.php">Contact Us</a></li>
+			  <li><a href="aboutUs.php">About Us</a></li>
+			  <li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>';
+	}
+		?>
 		<div class = "welcomenote col-md-10">
         <h1>Welcome!</h1>
 		<h2>Time Table Notification System</h2>

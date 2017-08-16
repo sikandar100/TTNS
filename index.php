@@ -1,7 +1,6 @@
 <?php
 $dir = './';
 session_start();
-define("Allow_user", true);
 if(isset($_SESSION['login_user']))
 {
 	header('Location: '.$dir.'welcome.php');
@@ -16,6 +15,39 @@ if(isset($_SESSION['login_user']))
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="CSS/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/homestyle.css" rel="stylesheet" type="text/css">
+<script>
+function _(id){ return document.getElementById(id); }
+function submitForm()
+{
+	_("mybtn").disabled = true;
+	_("status").innerHTML = 'please wait ...';
+	var formdata = new FormData();
+	formdata.append( "username", _("username").value );
+	formdata.append( "password", _("password").value );
+	var radios = document.getElementsByName('radiobtn');
+	for (var i = 0; i < radios.length; i++) {
+		if (radios[i].checked) {
+			formdata.append( "radiobtn", radios[i].value);
+			break;
+		}
+	}
+	var ajax = new XMLHttpRequest();
+	ajax.open( "POST", "PhpScripts/login.php" );
+	ajax.onreadystatechange = function() {
+		if(ajax.readyState == 4 && ajax.status == 200) {
+			var response = JSON.parse(ajax.responseText);
+			if(response.success){
+				_("status").innerHTML = "";
+				window.location.href = "./welcome.php";
+			} else {
+				_("status").innerHTML = response.error;
+				_("mybtn").disabled = false;
+			}
+		}
+	}
+	ajax.send( formdata );
+}
+</script>
 <title>Time Table Notification System</title>
 <style>
 .content form
@@ -23,6 +55,13 @@ if(isset($_SESSION['login_user']))
 		margin-left:40%;
 		margin-top:100px;
 		margin-bottom:100px;
+}
+#status
+{
+	text-align: center;
+	 color: red;
+	 font-size: 40px;
+	
 }
 </style>
 </head>
@@ -33,15 +72,18 @@ if(isset($_SESSION['login_user']))
          <p id="webtitle">Time Table Notification System</p>
         </div>
      	 <div class="content col-md-12">
-            <form action="PhpScripts/login.php" method="post" class="form-horizontal">
-                <p style="font-size:150%;">Username:<input type="text" name="username" placeholder="Username"></p>
-                <p style="font-size:150%;">Password:&nbsp;<input type="password" name="password" placeholder="Password">   </p>
-                <p style="font-size:150%;">Admin:<input type="radio" value="1" name="radiobtn">&nbsp;&nbsp; 
+            <form method="post" class="form-horizontal" onsubmit="submitForm(); return false;">
+			<table>
+              <tr><td><p style="font-size:150%;">Username:</p></td><td><input type="text" id="username" name="username" placeholder="Username" required></td></tr>
+                <tr><td><p style="font-size:150%;">Password:</p></td><td><input type="password" id="password" name="password" placeholder="Password" required></td></tr>
+			</table>
+                <p style="font-size:150%;">Admin:<input type="radio" value="1" name="radiobtn" required>&nbsp;&nbsp; 
                 Teacher:<input type="radio" value="2" name="radiobtn">&nbsp;&nbsp;
                 Student:<input type="radio" value="3" name="radiobtn"></p>
                 <p><input style="font-size:150%;" type="reset" Value="Cancel">&nbsp;&nbsp;&nbsp;
-                <input style="font-size:150%;" type="submit" value="Login"></p>
+                <input id="mybtn" style="font-size:150%;" type="submit" value="Login"></p>
             </form>
+			<p id = "status"></p>
         </div>
         
         <div class="footer col-md-12">

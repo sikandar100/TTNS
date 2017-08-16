@@ -11,6 +11,21 @@ include ('PhpScripts/session.php');
 <link href="CSS/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/homestyle.css" rel="stylesheet" type="text/css">
 <title>Time Table Notification System</title>
+<style>
+.divide1
+{ 
+	margin-top:80px;
+	
+}
+.divide2
+{ 
+	margin-top:120px;
+	
+}
+.footer{
+	margin-top:30px;
+}
+</style>
 </head>
 <body>
 <div class="container col-md-12">
@@ -61,24 +76,45 @@ include ('PhpScripts/session.php');
 		</ul>';
 	}
 		?>
-        <form action="PhpScripts/profileEntry.php" method="post" class="form-horizontal">
-		<p style="font-size:250%;">Profile:</p>
-		<table>
-        <tr><td><p style="font-size:150%;">FirstName:</p></td><td> <input type="text" name="Fname" placeholder="FirstName"></p></td></tr>
-        <tr><td><p style="font-size:150%;">LastName:</p></td> <td><input type="text" name="Lname" placeholder="LastName"></p></td></tr>
-        <tr><td><p style="font-size:150%;">Address:</p></td><td> <input type="text" name="Address" placeholder="Address"></p></td></tr>
-        <tr><td><p style="font-size:150%;">ContactNo:</p></td><td> <input type="text" name="Contact" placeholder="Contact#"></p></td></tr>
-        <tr><td><p style="font-size:150%;">Email:</p></td><td> <input type="text" name="Email" placeholder="EmailAddress"></p></td></tr>
-        <tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" name="RegistrationId" placeholder="Registration_Id"></p></td></tr>
-       </table>
-        <p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
-        <input style="font-size:150%;" type="submit" value="Submit"></p>
-         </form>
+		<div class = "registerusers col-md-10">
+			<div class = " divide1 col-md-5">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Department
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a href="#">CS</a></li>
+						<li><a href="#">IT</a></li>
+						<li><a href="#">Eco</a></li>
+					</ul>
+				</div>
+				</br></br></br></br></br>
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Semester
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a href="#">1st</a></li>
+						<li><a href="#">2nd</a></li>
+						<li><a href="#">3rd</a></li>
+						<li><a href="#">4th</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class = " divide2 col-md-5">
+				<form action="PhpScripts/upload_users.php" method="post" enctype="multipart/form-data">
+					Select File to upload:
+					<input type="file" name="fileToUpload" id="fileToUpload"></br></br>
+					<input type="submit" value="Upload" name="submit">
+				</form>
+			</div>
+		</div>
     </div>
     
     <div class="footer col-md-12">
    	 <p id="foot">Copy Rights Reserved &copy; Sikandar Waheed</p>
     </div>
 </div>
+<script src="./JavaScripts/js/jquery.min.js"></script>
+<script src="./JavaScripts/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <?php
 $dir = "./";
-define("Allow_user", true);
 include ('PhpScripts/session.php');
 ?>
 <!doctype html>
@@ -11,6 +10,40 @@ include ('PhpScripts/session.php');
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="CSS/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/homestyle.css" rel="stylesheet" type="text/css">
+<script>
+function _(id){ return document.getElementById(id); }
+function submitForm()
+{
+	_("mybtn").disabled = true;
+	_("status").innerHTML = 'please wait ...';
+	var formdata = new FormData();
+	formdata.append( "cpassword", _("cpassword").value );
+	formdata.append( "npassword", _("npassword").value );
+	formdata.append( "cnfrmpassword", _("cnfrmpassword").value );
+	var radios = document.getElementsByName('radiobtn');
+	for (var i = 0; i < radios.length; i++) {
+		if (radios[i].checked) {
+			formdata.append( "radiobtn", radios[i].value);
+			break;
+		}
+	}
+	var ajax = new XMLHttpRequest();
+	ajax.open( "POST", "PhpScripts/passwordEntry.php" );
+	ajax.onreadystatechange = function() {
+		if(ajax.readyState == 4 && ajax.status == 200) {
+			var response = JSON.parse(ajax.responseText);
+			if(response.success){
+				_("status").innerHTML = "";
+				_("status").innerHTML = "Password Has Been Changed Successfully";
+			} else {
+				_("status").innerHTML = response.error;
+				_("mybtn").disabled = false;
+			}
+		}
+	}
+	ajax.send( formdata );
+}
+</script>
 <title>Time Table Notification System</title>
 <style>
 .content form
@@ -18,6 +51,13 @@ include ('PhpScripts/session.php');
 		margin-left:40%;
 		margin-top:80px;
 		margin-bottom:100px;
+}
+#status
+{
+	text-align: center;
+	 color: red;
+	 font-size: 40px;
+	
 }
 </style>
 </head>
@@ -29,9 +69,12 @@ include ('PhpScripts/session.php');
     </div>
     
     <div class="content">
-    	<ul class="menu col-md-3">
-			   <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="#contact">Time Table</a></li>
+    	<?php
+		if($_SESSION['login_type']==3)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
 			  <li><a href="changePassword.php">Change Password</a></li>
 			  <li><a href="userProfile.php">User Profile</a></li>
 			  <li><a href="editProfile.php">Edit Profile</a></li>
@@ -39,20 +82,48 @@ include ('PhpScripts/session.php');
 			  <li><a href="contactUs.php">Contact Us</a></li>
 			  <li><a href="aboutUs.php">About Us</a></li>
 			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>
+		</ul>';
+	}
+	else if ($_SESSION['login_type']==2)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
+			  <li><a href="changePassword.php">Change Password</a></li>
+			  <li><a href="#">Send Notification</a></li>
+			  <li><a href="contactUs.php">Contact Us</a></li>
+			  <li><a href="aboutUs.php">About Us</a></li>
+			  <li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>';
+	}
+	else if ($_SESSION['login_type']==1)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
+			  <li><a href="uploadTimeTable.php">upload TimeTable</a></li>
+			  <li><a href="changePassword.php">Change Password</a></li>
+			  <li><a href="registerUsers.php">Register Users</a></li>
+			  <li><a href="contactUs.php">Contact Us</a></li>
+			  <li><a href="aboutUs.php">About Us</a></li>
+			  <li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>';
+	}
+		?>
 		<div class="content col-md-8">
-            <form class="form-horizontal">
+            <form method="post" class="form-horizontal" onsubmit="submitForm(); return false;">
 			<table>
-              <tr><td><p style="font-size:150%;">Current Password:</p></td><td><input type="password" name="cpassword" placeholder="Current Password:"></p></td></tr>
-              <tr><td><p style="font-size:150%;">New Password:</p></td><td><input type="password" name="npassword" placeholder="New Password"></p></td></tr>
-			  <tr><td><p style="font-size:150%;">Confirm Password:</p></td><td><input type="password" name="cnfrmpassword" placeholder="Confirm Password:"></p></td></tr>
+              <tr><td><p style="font-size:150%;">Current Password:</p></td><td><input type="password" id="cpassword" name="cpassword" placeholder="Current Password:" required></td></tr>
+              <tr><td><p style="font-size:150%;">New Password:</p></td><td><input type="password" id="npassword" name="npassword" placeholder="New Password" required></td></tr>
+			  <tr><td><p style="font-size:150%;">Confirm Password:</p></td><td><input type="password" id="cnfrmpassword" name="cnfrmpassword" placeholder="Confirm Password:" required></td></tr>
 			</table>
-			   <p style="font-size:150%;">Admin:<input type="radio" value="1" name="radiobtn">&nbsp;&nbsp; 
+			   <p style="font-size:150%;">Admin:<input type="radio" value="1" name="radiobtn" required>&nbsp;&nbsp; 
                 Teacher:<input type="radio" value="2" name="radiobtn">&nbsp;&nbsp;
                 Student:<input type="radio" value="3" name="radiobtn"></p>
                 <p><input style="font-size:150%;" type="reset" Value="Cancel">&nbsp;&nbsp;&nbsp;
-                <input style="font-size:150%;" type="submit" value="Done"></p>
+                <input id="mybtn" style="font-size:150%;" type="submit" value="Done"></p>
             </form>
+			<p id = "status"></p>
         </div>
     </div>
     

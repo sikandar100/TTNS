@@ -1,6 +1,5 @@
 <?php
 $dir = "./";
-define("Allow_user", true);
 include ('PhpScripts/session.php');
 ?>
 <!doctype html>
@@ -11,11 +10,42 @@ include ('PhpScripts/session.php');
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="CSS/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/homestyle.css" rel="stylesheet" type="text/css">
+<script>
+function _(id){ return document.getElementById(id); }
+function submitForm(){
+	_("mybtn").disabled = true;
+	_("status").innerHTML = 'please wait ...';
+	var formdata = new FormData();
+	formdata.append( "n", _("n").value );
+	formdata.append( "e", _("e").value );
+	formdata.append( "m", _("m").value );
+	var ajax = new XMLHttpRequest();
+	ajax.open( "POST", "PhpScripts/contact.php" );
+	ajax.onreadystatechange = function() {
+		if(ajax.readyState == 4 && ajax.status == 200) {
+			var response = JSON.parse(ajax.responseText);
+			if(response.success){
+				_("my_form").innerHTML = '<h2>Thanks '+_("n").value+', your message has been sent.</h2>';
+				_("status").innerHTML = "";
+			} else {
+				_("status").innerHTML = response.error;
+				_("mybtn").disabled = false;
+			}
+		}
+	}
+	ajax.send( formdata );
+}
+</script>
+
 <title>Time Table Notification System</title>
 <style>
 .contactus 
 {
 	padding-top:20px;
+}
+#status
+{
+	text-align: center;
 }
 </style>
 </head>
@@ -27,9 +57,12 @@ include ('PhpScripts/session.php');
     </div>
     
     <div class="content">
-    	<ul class="menu col-md-3">
-			   <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="#contact">Time Table</a></li>
+    	<?php
+		if($_SESSION['login_type']==3)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
 			  <li><a href="changePassword.php">Change Password</a></li>
 			  <li><a href="userProfile.php">User Profile</a></li>
 			  <li><a href="editProfile.php">Edit Profile</a></li>
@@ -37,12 +70,39 @@ include ('PhpScripts/session.php');
 			  <li><a href="contactUs.php">Contact Us</a></li>
 			  <li><a href="aboutUs.php">About Us</a></li>
 			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>
+		</ul>';
+	}
+	else if ($_SESSION['login_type']==2)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
+			  <li><a href="changePassword.php">Change Password</a></li>
+			  <li><a href="#">Send Notification</a></li>
+			  <li><a href="contactUs.php">Contact Us</a></li>
+			  <li><a href="aboutUs.php">About Us</a></li>
+			  <li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>';
+	}
+	else if ($_SESSION['login_type']==1)
+	{
+    	echo '<ul class="menu col-md-3">
+			 <li><a class="active" href="welcome.php">Home</a></li>
+			  <li><a href="timeTable.php">Time Table</a></li>
+			  <li><a href="uploadTimeTable.php">upload TimeTable</a></li>
+			  <li><a href="changePassword.php">Change Password</a></li>
+			  <li><a href="registerUsers.php">Register Users</a></li>
+			  <li><a href="contactUs.php">Contact Us</a></li>
+			  <li><a href="aboutUs.php">About Us</a></li>
+			  <li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>';
+	}
+		?>
 		<div class = "contactus col-md-9">
 	<div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="well well-sm">
-          <form class="form-horizontal" action="" method="post">
+          <form class="form-horizontal" method="post" id="my_form" onsubmit="submitForm(); return false;">
           <fieldset>
             <legend class="text-center">Contact us</legend>
     
@@ -50,7 +110,7 @@ include ('PhpScripts/session.php');
             <div class="form-group">
               <label class="col-md-3 control-label" for="name">Name</label>
               <div class="col-md-9">
-                <input id="name" name="name" type="text" placeholder="Your name" class="form-control">
+                <input id="n" name="name" type="text" placeholder="Your name" class="form-control" required>
               </div>
             </div>
     
@@ -58,7 +118,7 @@ include ('PhpScripts/session.php');
             <div class="form-group">
               <label class="col-md-3 control-label" for="email">Your E-mail</label>
               <div class="col-md-9">
-                <input id="email" name="email" type="text" placeholder="Your email" class="form-control">
+                <input id="e" name="email" type="email" placeholder="Your email" class="form-control" required>
               </div>
             </div>
     
@@ -66,14 +126,14 @@ include ('PhpScripts/session.php');
             <div class="form-group">
               <label class="col-md-3 control-label" for="message">Your message</label>
               <div class="col-md-9">
-                <textarea class="form-control" id="message" name="message" placeholder="Please enter your message here..." rows="5"></textarea>
+                <textarea class="form-control" id="m" name="message" placeholder="Please enter your message here..." rows="5" required></textarea>
               </div>
             </div>
     
             <!-- Form actions -->
             <div class="form-group">
               <div class="col-md-12 text-right">
-                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                <button id="mybtn" type="submit" class="btn btn-primary btn-lg">Submit</button>
               </div>
             </div>
           </fieldset>
@@ -81,7 +141,7 @@ include ('PhpScripts/session.php');
         </div>
       </div>
 		</div>
-
+<p id = "status"></p>
 </div>
 	<div class="footer col-md-12">
    	 <p id="foot">Copy Rights Reserved &copy; Sikandar Waheed</p>
