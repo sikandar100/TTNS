@@ -3,23 +3,17 @@ $dir = "./";
 define('INCLUDE_CHECK', 'hmm');
 include ('PhpScripts/session.php');
 
-if($_SESSION['login_type'] != 2){
+if($_SESSION['login_type'] != 1){
 	die('Forbidden Access');
 }
 include('PhpScripts/connection.php');
 
-if(isset($_GET['static'])){
-	$id = (int) $_GET['static'];
-	$sql = "SELECT * FROM `notification` WHERE `Checkpoint` = 1 AND `p_id` = ".$id;
-	$unread = mysqli_query($conn,$sql);
-	$unread = mysqli_num_rows($unread);
-
-	$sql = "SELECT * FROM `notification` WHERE `Checkpoint` = 0 AND `p_id` = ".$id;
-	$query = mysqli_query($conn,$sql);
-	$read = mysqli_num_rows($query);
-	
+if($_SESSION['login_type'] == 1){
+	$sql = "SELECT * FROM `reports` WHERE 1";
+	$report = mysqli_query($conn,$sql);
+	$report = mysqli_fetch_assoc($report);
 } else {
-	header("Location: ./teacherNotification.php");
+	header("Location: ".$dir."/welcome.php");
 }
 ?>
 <!doctype html>
@@ -92,51 +86,10 @@ if(isset($_GET['static'])){
 		<div class = "col-md-10">
 			<br>
 			<div class="row border-between">
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<div id="canvas-holder">
 						<canvas id="chart-area" />
 					</div>
-				</div>
-				<div class="col-md-8">
-					<h3>Seen By:</h3>
-					<table id="TimeTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-						<thead>
-							<tr>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Depastment</th>
-								<th>Semester</th>
-							</tr>
-						</thead>
-						<tfoot>
-							<tr>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Depastment</th>
-								<th>Semester</th>
-							</tr>
-						</tfoot>
-						<tbody>
-						<?php
-							$str = "";
-							while($row = mysqli_fetch_assoc($query)){
-								
-								$sql = "SELECT u.User_Id, u.Semester_Id, p.Fname, p.Lname, s.Semester_Name, d.Dept_Name FROM `users` u JOIN `profile` p JOIN `semester` s JOIN `department` d ON u.User_Id = ".$row['User_Id'];
-										
-								$query2 = mysqli_query($conn,$sql);
-								$reuslt = mysqli_fetch_assoc($query2);
-								
-								$str .= "<tr>";
-								$str .= "<td>".$reuslt['Fname']."</td>";
-								$str .= "<td>".$reuslt['Lname']."</td>";
-								$str .= "<td>".$reuslt['Dept_Name']."</td>";
-								$str .= "<td>".$reuslt['Semester_Name']."</td>";
-								$str .= "</tr>";
-							}
-							echo $str;
-						?>
-						</tbody>
-					</table>
 				</div>
 			</div>
 		</div>
@@ -153,33 +106,60 @@ if(isset($_GET['static'])){
 <script src="./JavaScripts/Chart.bundle.js"></script>
 <script>
 	var config = {
-        type: 'pie',
-        data: {
+        labels: ["Updated"],
             datasets: [{
+                type: 'bar',
+                label: 'Teacher',
+                backgroundColor: 'rgb(54, 162, 235)',
                 data: [
-                    <?php echo $read?>,
-                    <?php echo $unread?>,
+                    <?php echo $report['teacher']?>
                 ],
-                backgroundColor: [
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 99, 132)',
+				borderColor: 'white',
+                borderWidth: 2,
+            }, {
+                type: 'bar',
+                label: 'Student',
+                backgroundColor: 'rgb(255, 159, 64)',
+                data: [
+                    <?php echo $report['student']?>
                 ],
-                label: 'Dataset 1'
-            }],
-            labels: [
-                "Read",
-                "Unread"
-            ]
-        },
-        options: {
-            responsive: true
-        }
+                borderColor: 'white',
+                borderWidth: 2
+            }, {
+                type: 'bar',
+                label: 'Department',
+                backgroundColor: 'rgb(75, 192, 192)',
+                data: [
+                    <?php echo $report['department']?>
+                ]
+            }]
     };
 	$(document).ready(function() {
 		$('#TimeTable').DataTable();
 		var ctx = document.getElementById("chart-area").getContext("2d");
-        window.myPie = new Chart(ctx, config);
-	} );
+		window.myMixedChart = new Chart(ctx, {
+			type: 'bar',
+			data: config,
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Time Table updated total <?php echo $report['all_time']?> number of time.'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: true
+				},
+				"scales": {
+					"yAxes": [{
+						"ticks": {
+							"beginAtZero": true
+						}
+					}]
+				}
+			}
+		});
+	});
 </script>
 </body>
 </html>

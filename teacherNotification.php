@@ -1,6 +1,11 @@
 <?php
 $dir = "./";
+define('INCLUDE_CHECK', 'hmm');
 include ('PhpScripts/session.php');
+
+if($_SESSION['login_type'] != 2){
+	die('Forbidden Access');
+}
 include('PhpScripts/connection.php');
 
 if(isset($_GET['d'])){
@@ -98,47 +103,38 @@ function submitForm2()
     </div>
     
     <div class="content">
-    	<?php
-		if($_SESSION['login_type']==3)
-	{
-    	echo '<ul class="menu col-md-3">
+    <ul class="menu col-md-3">
 			 <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="timeTable.php">Time Table</a></li>
-			  <li><a href="changePassword.php">Change Password</a></li>
+			 <li><a href="timeTable.php">Time Table</a></li>
+			 <li><a href="changePassword.php">Change Password</a></li>
+	<?php
+	if($_SESSION['login_type']==3) //Student Menu
+	{
+    	echo '
 			  <li><a href="userProfile.php">User Profile</a></li>
 			  <li><a href="editProfile.php">Edit Profile</a></li>
-			  <li><a href="#news">News</a></li>
-			  <li><a href="contactUs.php">Contact Us</a></li>
-			  <li><a href="aboutUs.php">About Us</a></li>
-			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>';
+			  <li><a href="Notifications.php">Notifications</a></li>
+			';
 	}
-	else if ($_SESSION['login_type']==2)
+	else if ($_SESSION['login_type']==2) //Teacher Menu
 	{
-    	echo '<ul class="menu col-md-3">
-			 <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="timeTable.php">Time Table</a></li>
-			  <li><a href="changePassword.php">Change Password</a></li>
-			  <li><a href="#">Send Notification</a></li>
-			  <li><a href="contactUs.php">Contact Us</a></li>
-			  <li><a href="aboutUs.php">About Us</a></li>
-			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>';
+    	echo '
+			  <li><a href="teacherNotification.php">Send Notification</a></li>
+			';
 	}
-	else if ($_SESSION['login_type']==1)
+	else if ($_SESSION['login_type']==1) //Admin Menu
 	{
-    	echo '<ul class="menu col-md-3">
-			 <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="timeTable.php">Time Table</a></li>
-			  <li><a href="uploadTimeTable.php">upload TimeTable</a></li>
-			  <li><a href="changePassword.php">Change Password</a></li>
+    	echo '
+			  <li><a href="uploadTimeTable.php">Upload TimeTable</a></li>
+			  <li><a href="adminReports.php">Time Table Report</a></li>
 			  <li><a href="registerUsers.php">Register Users</a></li>
-			  <li><a href="contactUs.php">Contact Us</a></li>
-			  <li><a href="aboutUs.php">About Us</a></li>
-			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>';
+			';
 	}
 		?>
+			<li><a href="contactUs.php">Contact Us</a></li>
+			<li><a href="aboutUs.php">About Us</a></li>
+			<li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>
 		<div class = "col-md-10">
 			<br>
 			<div class="row border-between">
@@ -168,7 +164,6 @@ function submitForm2()
 									<option value="2nd">2nd</option>
 									<option value="3rd">3rd</option>
 									<option value="4th">4th</option>
-									</ul>
 								</select>
 							</div>
 						</div>

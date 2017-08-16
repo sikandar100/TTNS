@@ -81,7 +81,10 @@ function submitForm()
                 Teacher:<input type="radio" value="2" name="radiobtn">&nbsp;&nbsp;
                 Student:<input type="radio" value="3" name="radiobtn"></p>
                 <p><input style="font-size:150%;" type="reset" Value="Cancel">&nbsp;&nbsp;&nbsp;
-                <input id="mybtn" style="font-size:150%;" type="submit" value="Login"></p>
+                <input id="mybtn" style="font-size:150%;" type="submit" value="Login">
+				</p>
+				<br>
+				<a href="./forgetPassword.php"><h4>Forget Password?</h4></a>
             </form>
 			<p id = "status"></p>
         </div>

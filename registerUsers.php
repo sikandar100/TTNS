@@ -1,6 +1,11 @@
 <?php
 $dir = "./";
+define('INCLUDE_CHECK', 'hmm');
 include ('PhpScripts/session.php');
+
+if($_SESSION['login_type'] != 1){
+	die('Forbidden Access');
+}
 include('PhpScripts/connection.php');
 ?>
 <!doctype html>
@@ -36,54 +41,45 @@ include('PhpScripts/connection.php');
     </div>
     
     <div class="content">
-    	<?php
-		if($_SESSION['login_type']==3)
-	{
-    	echo '<ul class="menu col-md-3">
+    <ul class="menu col-md-3">
 			 <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="timeTable.php">Time Table</a></li>
-			  <li><a href="changePassword.php">Change Password</a></li>
+			 <li><a href="timeTable.php">Time Table</a></li>
+			 <li><a href="changePassword.php">Change Password</a></li>
+	<?php
+	if($_SESSION['login_type']==3) //Student Menu
+	{
+    	echo '
 			  <li><a href="userProfile.php">User Profile</a></li>
 			  <li><a href="editProfile.php">Edit Profile</a></li>
-			  <li><a href="#news">News</a></li>
-			  <li><a href="contactUs.php">Contact Us</a></li>
-			  <li><a href="aboutUs.php">About Us</a></li>
-			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>';
+			  <li><a href="Notifications.php">Notifications</a></li>
+			';
 	}
-	else if ($_SESSION['login_type']==2)
+	else if ($_SESSION['login_type']==2) //Teacher Menu
 	{
-    	echo '<ul class="menu col-md-3">
-			 <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="timeTable.php">Time Table</a></li>
-			  <li><a href="changePassword.php">Change Password</a></li>
-			  <li><a href="#">Send Notification</a></li>
-			  <li><a href="contactUs.php">Contact Us</a></li>
-			  <li><a href="aboutUs.php">About Us</a></li>
-			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>';
+    	echo '
+			  <li><a href="teacherNotification.php">Send Notification</a></li>
+			';
 	}
-	else if ($_SESSION['login_type']==1)
+	else if ($_SESSION['login_type']==1) //Admin Menu
 	{
-    	echo '<ul class="menu col-md-3">
-			 <li><a class="active" href="welcome.php">Home</a></li>
-			  <li><a href="timeTable.php">Time Table</a></li>
-			  <li><a href="uploadTimeTable.php">upload TimeTable</a></li>
-			  <li><a href="changePassword.php">Change Password</a></li>
+    	echo '
+			  <li><a href="uploadTimeTable.php">Upload TimeTable</a></li>
+			  <li><a href="adminReports.php">Time Table Report</a></li>
 			  <li><a href="registerUsers.php">Register Users</a></li>
-			  <li><a href="contactUs.php">Contact Us</a></li>
-			  <li><a href="aboutUs.php">About Us</a></li>
-			  <li><a href="PhpScripts/logout.php">Logout</a></li>
-		</ul>';
+			';
 	}
 		?>
+			<li><a href="contactUs.php">Contact Us</a></li>
+			<li><a href="aboutUs.php">About Us</a></li>
+			<li><a href="PhpScripts/logout.php">Logout</a></li>
+		</ul>
 		<div class ="col-md-5">
 		</br>
 			<form  class="form-horizontal"  action="PhpScripts/upload_users.php" method="post" enctype="multipart/form-data">
 				<div class="form-group">
-					<label for="dept" class="col-sm-4 control-label">Time Table Type:</label>
+					<label for="dept" class="col-sm-4 control-label">Department:</label>
 					<div class="col-sm-8">
-						<select class="form-control" name="dept" id="dept">
+						<select class="form-control" name="dept" id="dept" required>
 						<?php
 						$str="";
 						$query = mysqli_query($conn,"SELECT * FROM department WHERE 1");
@@ -97,9 +93,9 @@ include('PhpScripts/connection.php');
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="semester" class="col-sm-4 control-label">Reason:</label>
+					<label for="semester" class="col-sm-4 control-label">Semester:</label>
 					<div class="col-sm-8">
-						<select class="form-control" name="semester" id="semester">
+						<select class="form-control" name="semester" id="semester" required>
 							<option value="1st">1st</option>
 							<option value="2nd">2nd</option>
 							<option value="3rd">3rd</option>

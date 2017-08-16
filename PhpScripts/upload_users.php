@@ -120,10 +120,17 @@ include ('session.php');
 function registeruser($data)
 {
 	global $conn;
-	$regId = $data[0];
-	$query = mysqli_query($conn,"SELECT Reg_Id FROM users WHERE Reg_Id = '$regId'");
+	
+	$semester = mysqli_real_escape_string($conn,$_POST['semester']);
+	$dept = mysqli_real_escape_string($conn,$_POST['dept']);
+	$query = mysqli_query($conn,"SELECT `Semester_Id` FROM `semester` WHERE `Semester_Name` = '".$semester."' AND `Dept_Id` = '".$dept."'");
+	$semId = mysqli_fetch_assoc($query);
+	$semId = $semId['Semester_Id']; 
+
+	$regId = substr($data[0], 1);
+	$query = mysqli_query($conn,"SELECT * FROM users WHERE Reg_Id = '$regId'");
 	$row = mysqli_num_rows($query);
-	if(!($row > 0))
+	if($row == 0)
 	{
 		$name=$data[1];
 		
@@ -140,14 +147,23 @@ function registeruser($data)
 			}
 			
 		}
-		$pass = $uname;
+		$pass = md5($uname);
 		$type = 3;
 		
-		$sql = "INSERT INTO users (Username,Password,Type,Reg_Id,Semester_Id) VALUES ('$uname','$pass','$type','$regId','2')";
+		$sql = "INSERT INTO users (Username,Password,Type,Reg_Id,Semester_Id) VALUES ('$uname','$pass','$type','$regId','$semId')";
 		mysqli_query($conn, $sql);
+		$userId = mysqli_insert_id($conn);
 		
 		
-		
+	} else {
+		$user = mysqli_fetch_assoc($query);
+		$sql = "UPDATE `users` SET `Semester_Id`= '".$semId."' WHERE `User_Id` = ".$user['User_Id'];
+		mysqli_query($conn, $sql);
+		$sql = "DELETE FROM `enrolled_courses` WHERE `User_Id` = ".$user['User_Id'];
+		mysqli_query($conn, $sql);
+		$sql = "DELETE FROM `notification` WHERE `User_Id` = ".$user['User_Id'];
+		mysqli_query($conn, $sql);
+		$userId = $user['User_Id'];
 	}
 	
 	foreach ($data['course'] as $cours)
@@ -162,13 +178,9 @@ function registeruser($data)
 		{
 		$query = mysqli_query($conn,"SELECT Course_Id FROM courses WHERE Course_Code = '$ccode'");
 		$ccid = mysqli_fetch_assoc($query);
-		$cid = $ccid['Course_Id'];
-
-		$query = mysqli_query($conn,"SELECT User_Id FROM users WHERE Reg_Id = '$regId'");
-		$id = mysqli_fetch_assoc($query);
-		$uid = $id['User_Id']; 
+		$cid = isset($ccid['Course_Id']) ? $ccid['Course_Id'] : 'NULL'; 
 		
-		$sql = "INSERT INTO `enrolled_courses`(`Course_Id`, `User_Id`) VALUES ({$cid}, {$uid})";
+		$sql = "INSERT INTO `enrolled_courses`(`Course_Id`, `User_Id`) VALUES ({$cid}, {$userId})";
 		$s = mysqli_query($conn, $sql);
 			echo mysqli_error($conn);
 		}

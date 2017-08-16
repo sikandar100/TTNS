@@ -186,6 +186,10 @@ function store_timetable($timetable){
 	global $conn;
 	$sql = "DELETE FROM `timetable` WHERE 1";
 	mysqli_query($conn, $sql);
+	$sql = "DELETE FROM `reports` WHERE 1";
+	mysqli_query($conn, $sql);
+	$sql = "INSERT INTO `reports`(`all_time`, `teacher`, `student`, `department`) VALUES (1,0,0,1)";
+	mysqli_query($conn, $sql);
 	foreach($timetable as $slot){
 		$sql = "INSERT INTO `timetable`(`course`, `room`, `day`, `semester`, `time`, `cstring`) VALUES ('". mysqli_real_escape_string($conn,$slot['subject'])."','".mysqli_real_escape_string($conn,$slot['room'])."','".mysqli_real_escape_string($conn,$slot['day'])."','".mysqli_real_escape_string($conn,$slot['semester'])."','".mysqli_real_escape_string($conn,$slot['time'])."','".mysqli_real_escape_string($conn,$slot['cstring'])."')";
 		mysqli_query($conn, $sql);
@@ -202,6 +206,16 @@ function update_timetable($timetable){
 	global $conn;
 	
 	$sql = "UPDATE `timetable` SET `notification`= 0,`status`=2 WHERE 1";
+	mysqli_query($conn, $sql);
+	
+	if($_POST['reason'] == 1){
+		$sql = 'teacher= teacher + 1';
+	} elseif($_POST['reason'] == 2){
+		$sql = 'student= student + 1'
+	} else {
+		$sql = 'department= department + 1'
+	}
+	$sql = "UPDATE `reports` SET all_time= all_time + 1,".$sql." WHERE 1";
 	mysqli_query($conn, $sql);
 	
 	foreach($timetable as $slot){

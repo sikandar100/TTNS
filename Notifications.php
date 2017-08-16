@@ -6,8 +6,7 @@ include ('PhpScripts/session.php');
 if($_SESSION['login_type'] != 3){
 	die('Forbidden Access');
 }
-include ('PhpScripts/profileFetch.php');
-
+include ('PhpScripts/connection.php');
 ?>
 <!doctype html>
 <html>
@@ -19,10 +18,16 @@ include ('PhpScripts/profileFetch.php');
 <link href="CSS/homestyle.css" rel="stylesheet" type="text/css">
 <title>Time Table Notification System</title>
 <style>
-.profileTable
-{
-	margin-bottom:3%;
-	margin-left:10%;
+.message {
+	background-color:#EEEEEE;
+	padding: 20px;
+	padding-top: 15px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+}
+.blue {
+	background-color: #4285F4;
+	color:#F1F1F1;
 }
 </style>
 </head>
@@ -34,7 +39,7 @@ include ('PhpScripts/profileFetch.php');
     </div>
     
     <div class="content">
-    <ul class="menu col-md-3">
+	<ul class="menu col-md-3">
 			 <li><a class="active" href="welcome.php">Home</a></li>
 			 <li><a href="timeTable.php">Time Table</a></li>
 			 <li><a href="changePassword.php">Change Password</a></li>
@@ -66,12 +71,30 @@ include ('PhpScripts/profileFetch.php');
 			<li><a href="aboutUs.php">About Us</a></li>
 			<li><a href="PhpScripts/logout.php">Logout</a></li>
 		</ul>
-		<div class = "profileTable col-md-6">
-		<h2>Profile:</h2>
-		<table class="table table-hover">
-		<?php echo $str; ?>
-		</table>
-        
+		<div class=" col-md-10">
+		<br>
+			<?php
+				$sql = "SELECT * FROM `notification` WHERE `User_Id` = ".$_SESSION['user_id']." AND `Checkpoint`=1";
+				$query = mysqli_query($conn,$sql);
+				while($row = mysqli_fetch_assoc($query)){
+					$date = strtotime($row['time_rec']);
+					echo '<div class="message blue">
+							  <h3>'.$row['Msg'].'</h3>
+							  <p><b>Date: <b>'.date("l jS \of F Y h:i:s A",$date).'</p>
+						</div>';
+				}
+				$sql = "SELECT * FROM `notification` WHERE `User_Id` = ".$_SESSION['user_id']." AND `Checkpoint`=0";
+				$query = mysqli_query($conn,$sql);
+				while($row = mysqli_fetch_assoc($query)){
+					$date = strtotime($row['time_rec']);
+					echo '<div class="message">
+							  <h3>'.$row['Msg'].'</h3>
+							  <p><b>Date: </b>'.date("l jS \of F Y h:i:s A",$date).'</p>
+						</div>';
+				}
+				$sql = "UPDATE `notification` SET `Checkpoint`=0 WHERE `User_Id` = ".$_SESSION['user_id'];
+				$query = mysqli_query($conn,$sql);
+			?>
 		</div>
     </div>
     

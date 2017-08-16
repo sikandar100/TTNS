@@ -1,7 +1,9 @@
 <?php
+if(!defined('INCLUDE_CHECK')){
+	die('get lost.');
+}
 $dir ='../';
 include('connection.php');
-include ('session.php');
 
 $user = $_SESSION['login_user'];
 

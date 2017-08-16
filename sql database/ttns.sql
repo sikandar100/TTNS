@@ -1,22 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 3.5.2.2
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2017 at 07:45 PM
--- Server version: 10.1.22-MariaDB
--- PHP Version: 7.1.4
+-- Generation Time: Jul 05, 2017 at 10:01 PM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `ttns`
@@ -28,13 +26,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `courses`
 --
 
-CREATE TABLE `courses` (
-  `Course_Id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `courses` (
+  `Course_Id` int(11) NOT NULL AUTO_INCREMENT,
   `Course_Code` varchar(10) NOT NULL,
   `Course_Title` varchar(45) NOT NULL,
   `Credit` int(11) NOT NULL,
-  `Semester_Id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Semester_Id` int(11) NOT NULL,
+  PRIMARY KEY (`Course_Id`),
+  KEY `Semester_Id` (`Semester_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `courses`
@@ -71,19 +71,21 @@ INSERT INTO `courses` (`Course_Id`, `Course_Code`, `Course_Title`, `Credit`, `Se
 -- Table structure for table `department`
 --
 
-CREATE TABLE `department` (
-  `Dept_Id` int(11) NOT NULL,
-  `Dept_Name` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `department` (
+  `Dept_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Dept_Name` varchar(20) NOT NULL,
+  `short_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`Dept_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `department`
 --
 
-INSERT INTO `department` (`Dept_Id`, `Dept_Name`) VALUES
-(1, 'Computer Science'),
-(2, 'Physics'),
-(3, 'IT');
+INSERT INTO `department` (`Dept_Id`, `Dept_Name`, `short_name`) VALUES
+(1, 'Computer Science', 'C.Sc'),
+(2, 'Physics', 'Phys'),
+(3, 'IT', 'I.T');
 
 -- --------------------------------------------------------
 
@@ -91,31 +93,419 @@ INSERT INTO `department` (`Dept_Id`, `Dept_Name`) VALUES
 -- Table structure for table `enrolled_courses`
 --
 
-CREATE TABLE `enrolled_courses` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `Course_Id` int(11) NOT NULL,
-  `User_Id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `enrolled_courses` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Course_Id` int(11) DEFAULT NULL,
+  `User_Id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Course_Id` (`Course_Id`),
+  KEY `User_Id` (`User_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5508 ;
 
 --
 -- Dumping data for table `enrolled_courses`
 --
 
 INSERT INTO `enrolled_courses` (`id`, `Course_Id`, `User_Id`) VALUES
-(1, 2, 67),
-(2, 3, 67),
-(3, 1, 67),
-(4, 4, 67),
-(5, 6, 67),
-(6, 23, 67),
-(7, 5, 67),
-(8, 2, 68),
-(9, 3, 68),
-(10, 1, 68),
-(11, 4, 68),
-(12, 12, 68),
-(13, 23, 68),
-(14, 5, 68);
+(5109, 2, 151),
+(5110, 3, 151),
+(5111, 1, 151),
+(5112, 4, 151),
+(5113, 6, 151),
+(5114, 23, 151),
+(5115, 5, 151),
+(5116, 2, 152),
+(5117, 3, 152),
+(5118, 1, 152),
+(5119, 4, 152),
+(5120, 12, 152),
+(5121, 23, 152),
+(5122, 5, 152),
+(5123, 2, 153),
+(5124, 3, 153),
+(5125, 1, 153),
+(5126, 4, 153),
+(5127, 6, 153),
+(5128, 23, 153),
+(5129, 5, 153),
+(5130, 2, 154),
+(5131, 3, 154),
+(5132, 1, 154),
+(5133, 4, 154),
+(5134, 6, 154),
+(5135, 23, 154),
+(5136, 5, 154),
+(5137, 2, 155),
+(5138, 3, 155),
+(5139, 1, 155),
+(5140, 4, 155),
+(5141, 6, 155),
+(5142, 23, 155),
+(5143, 5, 155),
+(5144, 2, 156),
+(5145, 3, 156),
+(5146, 1, 156),
+(5147, 4, 156),
+(5148, 12, 156),
+(5149, 23, 156),
+(5150, 5, 156),
+(5151, 2, 157),
+(5152, 3, 157),
+(5153, 1, 157),
+(5154, 4, 157),
+(5155, 12, 157),
+(5156, 23, 157),
+(5157, 5, 157),
+(5158, 2, 158),
+(5159, 3, 158),
+(5160, 1, 158),
+(5161, 4, 158),
+(5162, 12, 158),
+(5163, 23, 158),
+(5164, 5, 158),
+(5165, 2, 159),
+(5166, 3, 159),
+(5167, 1, 159),
+(5168, 4, 159),
+(5169, 12, 159),
+(5170, 23, 159),
+(5171, 5, 159),
+(5172, 2, 160),
+(5173, 3, 160),
+(5174, 1, 160),
+(5175, 4, 160),
+(5176, 12, 160),
+(5177, 23, 160),
+(5178, 5, 160),
+(5179, 2, 161),
+(5180, 3, 161),
+(5181, 1, 161),
+(5182, 4, 161),
+(5183, 12, 161),
+(5184, 23, 161),
+(5185, 5, 161),
+(5186, 2, 162),
+(5187, 3, 162),
+(5188, 1, 162),
+(5189, 4, 162),
+(5190, 6, 162),
+(5191, 23, 162),
+(5192, 5, 162),
+(5193, 2, 163),
+(5194, 3, 163),
+(5195, 1, 163),
+(5196, 4, 163),
+(5197, 6, 163),
+(5198, 23, 163),
+(5199, 5, 163),
+(5200, 2, 164),
+(5201, 3, 164),
+(5202, 1, 164),
+(5203, 4, 164),
+(5204, 12, 164),
+(5205, 23, 164),
+(5206, 5, 164),
+(5207, 2, 165),
+(5208, 3, 165),
+(5209, 1, 165),
+(5210, 4, 165),
+(5211, 12, 165),
+(5212, 23, 165),
+(5213, 5, 165),
+(5214, 2, 166),
+(5215, 3, 166),
+(5216, 1, 166),
+(5217, 4, 166),
+(5218, 12, 166),
+(5219, 23, 166),
+(5220, 5, 166),
+(5221, 2, 167),
+(5222, 3, 167),
+(5223, 1, 167),
+(5224, 4, 167),
+(5225, 6, 167),
+(5226, 23, 167),
+(5227, 5, 167),
+(5228, 2, 168),
+(5229, 3, 168),
+(5230, 1, 168),
+(5231, 4, 168),
+(5232, 12, 168),
+(5233, 23, 168),
+(5234, 5, 168),
+(5235, 2, 169),
+(5236, 3, 169),
+(5237, 1, 169),
+(5238, 4, 169),
+(5239, 12, 169),
+(5240, 23, 169),
+(5241, 5, 169),
+(5242, 2, 170),
+(5243, 3, 170),
+(5244, 1, 170),
+(5245, 4, 170),
+(5246, 6, 170),
+(5247, 23, 170),
+(5248, 5, 170),
+(5249, 2, 171),
+(5250, 3, 171),
+(5251, 1, 171),
+(5252, 4, 171),
+(5253, 12, 171),
+(5254, 23, 171),
+(5255, 5, 171),
+(5256, 2, 172),
+(5257, 3, 172),
+(5258, 1, 172),
+(5259, 4, 172),
+(5260, 12, 172),
+(5261, 23, 172),
+(5262, 5, 172),
+(5263, 2, 173),
+(5264, 3, 173),
+(5265, 1, 173),
+(5266, 4, 173),
+(5267, 12, 173),
+(5268, 23, 173),
+(5269, 5, 173),
+(5270, 2, 174),
+(5271, 3, 174),
+(5272, 1, 174),
+(5273, 4, 174),
+(5274, 6, 174),
+(5275, 23, 174),
+(5276, 5, 174),
+(5277, 2, 175),
+(5278, 3, 175),
+(5279, 1, 175),
+(5280, 4, 175),
+(5281, 12, 175),
+(5282, 23, 175),
+(5283, 5, 175),
+(5284, 2, 176),
+(5285, 3, 176),
+(5286, 1, 176),
+(5287, 4, 176),
+(5288, 6, 176),
+(5289, 23, 176),
+(5290, 5, 176),
+(5291, 2, 177),
+(5292, 3, 177),
+(5293, 1, 177),
+(5294, 4, 177),
+(5295, 12, 177),
+(5296, 23, 177),
+(5297, 5, 177),
+(5298, 2, 178),
+(5299, 3, 178),
+(5300, 1, 178),
+(5301, 4, 178),
+(5302, 12, 178),
+(5303, 23, 178),
+(5304, 5, 178),
+(5305, 2, 179),
+(5306, 3, 179),
+(5307, 1, 179),
+(5308, 4, 179),
+(5309, 12, 179),
+(5310, 23, 179),
+(5311, 5, 179),
+(5312, 2, 180),
+(5313, 3, 180),
+(5314, 1, 180),
+(5315, 4, 180),
+(5316, 12, 180),
+(5317, 23, 180),
+(5318, 5, 180),
+(5319, 2, 181),
+(5320, 3, 181),
+(5321, 1, 181),
+(5322, 4, 181),
+(5323, 12, 181),
+(5324, 23, 181),
+(5325, 5, 181),
+(5326, 2, 182),
+(5327, 3, 182),
+(5328, 1, 182),
+(5329, 4, 182),
+(5330, 6, 182),
+(5331, 23, 182),
+(5332, 5, 182),
+(5333, 2, 183),
+(5334, 3, 183),
+(5335, 1, 183),
+(5336, 4, 183),
+(5337, 12, 183),
+(5338, 23, 183),
+(5339, 5, 183),
+(5340, 2, 184),
+(5341, 3, 184),
+(5342, 1, 184),
+(5343, 4, 184),
+(5344, 12, 184),
+(5345, 23, 184),
+(5346, 5, 184),
+(5347, 2, 185),
+(5348, 3, 185),
+(5349, 1, 185),
+(5350, 4, 185),
+(5351, 12, 185),
+(5352, 23, 185),
+(5353, 5, 185),
+(5354, 2, 186),
+(5355, 3, 186),
+(5356, 1, 186),
+(5357, 4, 186),
+(5358, 12, 186),
+(5359, 23, 186),
+(5360, 5, 186),
+(5361, 2, 187),
+(5362, 3, 187),
+(5363, 1, 187),
+(5364, 4, 187),
+(5365, 12, 187),
+(5366, 23, 187),
+(5367, 5, 187),
+(5368, 2, 188),
+(5369, 3, 188),
+(5370, 1, 188),
+(5371, 4, 188),
+(5372, 6, 188),
+(5373, 23, 188),
+(5374, 5, 188),
+(5375, 2, 189),
+(5376, 3, 189),
+(5377, 1, 189),
+(5378, 4, 189),
+(5379, 12, 189),
+(5380, 23, 189),
+(5381, 5, 189),
+(5382, 2, 190),
+(5383, 3, 190),
+(5384, 1, 190),
+(5385, 4, 190),
+(5386, 6, 190),
+(5387, 23, 190),
+(5388, 5, 190),
+(5389, 2, 191),
+(5390, 3, 191),
+(5391, 1, 191),
+(5392, 4, 191),
+(5393, 12, 191),
+(5394, 23, 191),
+(5395, 5, 191),
+(5396, 2, 192),
+(5397, 3, 192),
+(5398, 1, 192),
+(5399, 4, 192),
+(5400, 12, 192),
+(5401, 23, 192),
+(5402, 5, 192),
+(5403, 2, 193),
+(5404, 3, 193),
+(5405, 1, 193),
+(5406, 4, 193),
+(5407, 12, 193),
+(5408, 23, 193),
+(5409, 5, 193),
+(5410, 2, 194),
+(5411, 3, 194),
+(5412, 1, 194),
+(5413, 4, 194),
+(5414, 12, 194),
+(5415, 23, 194),
+(5416, 5, 194),
+(5417, 2, 195),
+(5418, 3, 195),
+(5419, 1, 195),
+(5420, 4, 195),
+(5421, 12, 195),
+(5422, 23, 195),
+(5423, 5, 195),
+(5424, 2, 196),
+(5425, 3, 196),
+(5426, 1, 196),
+(5427, 4, 196),
+(5428, 6, 196),
+(5429, 23, 196),
+(5430, 5, 196),
+(5431, 2, 197),
+(5432, 3, 197),
+(5433, 1, 197),
+(5434, 4, 197),
+(5435, 12, 197),
+(5436, 23, 197),
+(5437, 5, 197),
+(5438, 2, 198),
+(5439, 3, 198),
+(5440, 1, 198),
+(5441, 4, 198),
+(5442, 12, 198),
+(5443, 23, 198),
+(5444, 5, 198),
+(5445, 2, 199),
+(5446, 3, 199),
+(5447, 1, 199),
+(5448, 4, 199),
+(5449, 12, 199),
+(5450, 23, 199),
+(5451, 5, 199),
+(5452, 2, 200),
+(5453, 3, 200),
+(5454, 1, 200),
+(5455, 4, 200),
+(5456, 6, 200),
+(5457, 23, 200),
+(5458, 5, 200),
+(5459, 2, 201),
+(5460, 3, 201),
+(5461, 1, 201),
+(5462, 4, 201),
+(5463, 12, 201),
+(5464, 23, 201),
+(5465, 5, 201),
+(5466, 2, 202),
+(5467, 3, 202),
+(5468, 1, 202),
+(5469, 4, 202),
+(5470, 12, 202),
+(5471, 23, 202),
+(5472, 5, 202),
+(5473, 2, 203),
+(5474, 3, 203),
+(5475, 1, 203),
+(5476, 4, 203),
+(5477, 12, 203),
+(5478, 23, 203),
+(5479, 5, 203),
+(5480, 2, 204),
+(5481, 3, 204),
+(5482, 1, 204),
+(5483, 4, 204),
+(5484, 12, 204),
+(5485, 23, 204),
+(5486, 5, 204),
+(5487, 2, 205),
+(5488, 3, 205),
+(5489, 1, 205),
+(5490, 4, 205),
+(5491, 12, 205),
+(5492, 23, 205),
+(5493, 5, 205),
+(5494, 2, 206),
+(5495, 3, 206),
+(5496, 1, 206),
+(5497, 4, 206),
+(5498, 12, 206),
+(5499, 23, 206),
+(5500, 5, 206),
+(5501, 2, 207),
+(5502, 3, 207),
+(5503, 1, 207),
+(5504, 4, 207),
+(5505, 12, 207),
+(5506, 23, 207),
+(5507, 5, 207);
 
 -- --------------------------------------------------------
 
@@ -123,23 +513,80 @@ INSERT INTO `enrolled_courses` (`id`, `Course_Id`, `User_Id`) VALUES
 -- Table structure for table `notification`
 --
 
-CREATE TABLE `notification` (
-  `Notif_Id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `notification` (
+  `Notif_Id` int(11) NOT NULL AUTO_INCREMENT,
   `Msg` varchar(100) NOT NULL,
   `Checkpoint` tinyint(1) NOT NULL COMMENT '1: Unread, 0: read',
   `User_Id` int(11) NOT NULL,
-  `p_id` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `p_id` int(10) unsigned DEFAULT NULL,
+  `time_rec` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Notif_Id`),
+  KEY `User_Id` (`User_Id`),
+  KEY `notification_ibfk_2` (`p_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=76 ;
 
 --
 -- Dumping data for table `notification`
 --
 
-INSERT INTO `notification` (`Notif_Id`, `Msg`, `Checkpoint`, `User_Id`, `p_id`) VALUES
-(7, 'Course \'PH-193\' is updated. Check the time table.', 1, 67, NULL),
-(8, 'Course \'PH-193\' is updated. Check the time table.', 1, 68, NULL),
-(15, 'daosdhalsjl', 0, 67, 5),
-(16, 'daosdhalsjl', 0, 68, 5);
+INSERT INTO `notification` (`Notif_Id`, `Msg`, `Checkpoint`, `User_Id`, `p_id`, `time_rec`) VALUES
+(19, 'jhgjgjhgjhgjhghgj', 1, 151, 6, '2017-07-04 08:39:09'),
+(20, 'jhgjgjhgjhgjhghgj', 1, 152, 6, '2017-07-04 08:39:09'),
+(21, 'jhgjgjhgjhgjhghgj', 1, 153, 6, '2017-07-04 08:39:09'),
+(22, 'jhgjgjhgjhgjhghgj', 1, 154, 6, '2017-07-04 08:39:09'),
+(23, 'jhgjgjhgjhgjhghgj', 1, 155, 6, '2017-07-04 08:39:09'),
+(24, 'jhgjgjhgjhgjhghgj', 1, 156, 6, '2017-07-04 08:39:09'),
+(25, 'jhgjgjhgjhgjhghgj', 1, 157, 6, '2017-07-04 08:39:09'),
+(26, 'jhgjgjhgjhgjhghgj', 1, 158, 6, '2017-07-04 08:39:09'),
+(27, 'jhgjgjhgjhgjhghgj', 1, 159, 6, '2017-07-04 08:39:10'),
+(28, 'jhgjgjhgjhgjhghgj', 1, 160, 6, '2017-07-04 08:39:10'),
+(29, 'jhgjgjhgjhgjhghgj', 1, 161, 6, '2017-07-04 08:39:10'),
+(30, 'jhgjgjhgjhgjhghgj', 1, 162, 6, '2017-07-04 08:39:10'),
+(31, 'jhgjgjhgjhgjhghgj', 1, 163, 6, '2017-07-04 08:39:10'),
+(32, 'jhgjgjhgjhgjhghgj', 1, 164, 6, '2017-07-04 08:39:10'),
+(33, 'jhgjgjhgjhgjhghgj', 1, 165, 6, '2017-07-04 08:39:10'),
+(34, 'jhgjgjhgjhgjhghgj', 1, 166, 6, '2017-07-04 08:39:10'),
+(35, 'jhgjgjhgjhgjhghgj', 1, 167, 6, '2017-07-04 08:39:10'),
+(36, 'jhgjgjhgjhgjhghgj', 1, 168, 6, '2017-07-04 08:39:10'),
+(37, 'jhgjgjhgjhgjhghgj', 1, 169, 6, '2017-07-04 08:39:10'),
+(38, 'jhgjgjhgjhgjhghgj', 1, 170, 6, '2017-07-04 08:39:10'),
+(39, 'jhgjgjhgjhgjhghgj', 1, 171, 6, '2017-07-04 08:39:10'),
+(40, 'jhgjgjhgjhgjhghgj', 1, 172, 6, '2017-07-04 08:39:10'),
+(41, 'jhgjgjhgjhgjhghgj', 1, 173, 6, '2017-07-04 08:39:10'),
+(42, 'jhgjgjhgjhgjhghgj', 1, 174, 6, '2017-07-04 08:39:10'),
+(43, 'jhgjgjhgjhgjhghgj', 1, 175, 6, '2017-07-04 08:39:10'),
+(44, 'jhgjgjhgjhgjhghgj', 1, 176, 6, '2017-07-04 08:39:10'),
+(45, 'jhgjgjhgjhgjhghgj', 1, 177, 6, '2017-07-04 08:39:10'),
+(46, 'jhgjgjhgjhgjhghgj', 1, 178, 6, '2017-07-04 08:39:10'),
+(47, 'jhgjgjhgjhgjhghgj', 1, 179, 6, '2017-07-04 08:39:10'),
+(48, 'jhgjgjhgjhgjhghgj', 1, 180, 6, '2017-07-04 08:39:10'),
+(49, 'jhgjgjhgjhgjhghgj', 1, 181, 6, '2017-07-04 08:39:10'),
+(50, 'jhgjgjhgjhgjhghgj', 1, 182, 6, '2017-07-04 08:39:10'),
+(51, 'jhgjgjhgjhgjhghgj', 1, 183, 6, '2017-07-04 08:39:10'),
+(52, 'jhgjgjhgjhgjhghgj', 1, 184, 6, '2017-07-04 08:39:10'),
+(53, 'jhgjgjhgjhgjhghgj', 1, 185, 6, '2017-07-04 08:39:10'),
+(54, 'jhgjgjhgjhgjhghgj', 1, 186, 6, '2017-07-04 08:39:10'),
+(55, 'jhgjgjhgjhgjhghgj', 1, 187, 6, '2017-07-04 08:39:10'),
+(56, 'jhgjgjhgjhgjhghgj', 1, 188, 6, '2017-07-04 08:39:10'),
+(57, 'jhgjgjhgjhgjhghgj', 1, 189, 6, '2017-07-04 08:39:10'),
+(58, 'jhgjgjhgjhgjhghgj', 1, 190, 6, '2017-07-04 08:39:10'),
+(59, 'jhgjgjhgjhgjhghgj', 1, 191, 6, '2017-07-04 08:39:10'),
+(60, 'jhgjgjhgjhgjhghgj', 1, 192, 6, '2017-07-04 08:39:10'),
+(61, 'jhgjgjhgjhgjhghgj', 1, 193, 6, '2017-07-04 08:39:10'),
+(62, 'jhgjgjhgjhgjhghgj', 1, 194, 6, '2017-07-04 08:39:10'),
+(63, 'jhgjgjhgjhgjhghgj', 1, 195, 6, '2017-07-04 08:39:10'),
+(64, 'jhgjgjhgjhgjhghgj', 1, 196, 6, '2017-07-04 08:39:10'),
+(65, 'jhgjgjhgjhgjhghgj', 1, 197, 6, '2017-07-04 08:39:10'),
+(66, 'jhgjgjhgjhgjhghgj', 1, 198, 6, '2017-07-04 08:39:10'),
+(67, 'jhgjgjhgjhgjhghgj', 1, 199, 6, '2017-07-04 08:39:10'),
+(68, 'jhgjgjhgjhgjhghgj', 1, 200, 6, '2017-07-04 08:39:10'),
+(69, 'jhgjgjhgjhgjhghgj', 1, 201, 6, '2017-07-04 08:39:10'),
+(70, 'jhgjgjhgjhgjhghgj', 1, 202, 6, '2017-07-04 08:39:10'),
+(71, 'jhgjgjhgjhgjhghgj', 1, 203, 6, '2017-07-04 08:39:10'),
+(72, 'jhgjgjhgjhgjhghgj', 1, 204, 6, '2017-07-04 08:39:10'),
+(73, 'jhgjgjhgjhgjhghgj', 1, 205, 6, '2017-07-04 08:39:10'),
+(74, 'jhgjgjhgjhgjhghgj', 1, 206, 6, '2017-07-04 08:39:10'),
+(75, 'jhgjgjhgjhgjhghgj', 1, 207, 6, '2017-07-04 08:39:10');
 
 -- --------------------------------------------------------
 
@@ -147,20 +594,22 @@ INSERT INTO `notification` (`Notif_Id`, `Msg`, `Checkpoint`, `User_Id`, `p_id`) 
 -- Table structure for table `notification_statics`
 --
 
-CREATE TABLE `notification_statics` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `notification_type` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '1: system Notification, 2: Teacher Notification',
+CREATE TABLE IF NOT EXISTS `notification_statics` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `notification_type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1: system Notification, 2: Teacher Notification',
   `course` varchar(512) NOT NULL DEFAULT 'ALL',
   `sender_id` int(11) DEFAULT NULL,
-  `sent_date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `sent_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sender_id` (`sender_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `notification_statics`
 --
 
 INSERT INTO `notification_statics` (`id`, `notification_type`, `course`, `sender_id`, `sent_date`) VALUES
-(5, 2, 'physics Lab (PH-193)', 2, '2017-06-16 13:32:06');
+(6, 2, 'Islamic Studies (IS-101)', 2, '2017-07-04 10:39:09');
 
 -- --------------------------------------------------------
 
@@ -168,15 +617,17 @@ INSERT INTO `notification_statics` (`id`, `notification_type`, `course`, `sender
 -- Table structure for table `profile`
 --
 
-CREATE TABLE `profile` (
-  `Profile_Id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `profile` (
+  `Profile_Id` int(11) NOT NULL AUTO_INCREMENT,
   `Fname` varchar(20) NOT NULL,
   `Lname` varchar(20) NOT NULL,
   `Address` varchar(40) NOT NULL,
   `ContactNo` varchar(11) NOT NULL,
   `Email` varchar(25) NOT NULL,
-  `User_Id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `User_Id` int(11) NOT NULL,
+  PRIMARY KEY (`Profile_Id`),
+  KEY `User_Id` (`User_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `profile`
@@ -188,14 +639,52 @@ INSERT INTO `profile` (`Profile_Id`, `Fname`, `Lname`, `Address`, `ContactNo`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reports`
+--
+
+CREATE TABLE IF NOT EXISTS `reports` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `all_time` mediumint(8) unsigned NOT NULL DEFAULT '1',
+  `teacher` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `student` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `department` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `reports`
+--
+
+INSERT INTO `reports` (`id`, `all_time`, `teacher`, `student`, `department`) VALUES
+(1, 10, 3, 5, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `security_keys`
+--
+
+CREATE TABLE IF NOT EXISTS `security_keys` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `User_Id` int(11) NOT NULL,
+  `key` varchar(256) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`User_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `semester`
 --
 
-CREATE TABLE `semester` (
-  `Semester_Id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `semester` (
+  `Semester_Id` int(11) NOT NULL AUTO_INCREMENT,
   `Semester_Name` varchar(10) NOT NULL,
-  `Dept_Id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Dept_Id` int(11) NOT NULL,
+  PRIMARY KEY (`Semester_Id`),
+  KEY `Dept_Id` (`Dept_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `semester`
@@ -221,17 +710,18 @@ INSERT INTO `semester` (`Semester_Id`, `Semester_Name`, `Dept_Id`) VALUES
 -- Table structure for table `timetable`
 --
 
-CREATE TABLE `timetable` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `timetable` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `course` varchar(160) NOT NULL,
   `room` varchar(16) NOT NULL,
   `day` varchar(10) NOT NULL,
   `semester` varchar(3) NOT NULL,
   `time` varchar(12) NOT NULL,
   `cstring` varchar(160) NOT NULL,
-  `notification` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '1: Send Notification, 0: No Notification',
-  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '1: Keep, 2: Delete'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `notification` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1: Send Notification, 0: No Notification',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1: Keep, 2: Delete',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2052 ;
 
 --
 -- Dumping data for table `timetable`
@@ -449,142 +939,83 @@ INSERT INTO `timetable` (`id`, `course`, `room`, `day`, `semester`, `time`, `cst
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `User_Id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `User_Id` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(20) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password` varchar(32) NOT NULL,
   `Type` int(1) NOT NULL COMMENT '1: Admin, 2: Teacher, 3: Student',
   `Reg_Id` varchar(11) NOT NULL,
-  `Semester_Id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Semester_Id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`User_Id`),
+  KEY `Semester_Id` (`Semester_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=208 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`User_Id`, `Username`, `Password`, `Type`, `Reg_Id`, `Semester_Id`) VALUES
-(1, 'sikandar1', 'sikandar1', 1, '01071511011', NULL),
-(2, 'sikandar2', 'sikandar2', 2, '01071511022', NULL),
-(3, 'sikandar3', 'sikandar3', 3, '01071511033', 2),
-(67, 'HIFZA_736', 'HIFZA_736', 3, '04071613001', 2),
-(68, 'UMAIRA418', 'UMAIRA418', 3, '04071613002', 2);
+(1, 'sikandar1', '55fbdd7f1be43551aeac74cd6a9051a1', 1, '1071511011', NULL),
+(2, 'sikandar2', '46a9a68aaa136f713bbe3b18a321ba05', 2, '1071511022', NULL),
+(3, 'sikandar3', '38b1e0c0162b6ff97d91a9773134415e', 3, '1071511033', 2),
+(151, 'HIFZA_177', 'dc53a6be4836e8b96c262702c7974b8e', 3, '4071613001', 2),
+(152, 'UMAIRA230', '0a0c272082b4b155ebd6e720181f03fa', 3, '4071613002', 2),
+(153, 'MARYAM223', '019c08c1b98218fa6856b94f9554401b', 3, '4071613003', 2),
+(154, 'KHAN_A86', '2b9c1e5080136e747b8b4a08cfd68f58', 3, '4071613004', 2),
+(155, 'AIMAL_495', '3db90b83db50b00cbbb03f136bbc9747', 3, '4071613005', 2),
+(156, 'SITWAT720', 'd0df1bdde1dbb7b6ac2df9d9f0e7b7a0', 3, '4071613006', 2),
+(157, 'MUHAMM395', '9b67286a9983c816eccb799479ba35a3', 3, '4071613007', 2),
+(158, 'SEHER_955', '5ce8f9d9e416258ae0c7a41b1ae4bc7b', 3, '4071613008', 2),
+(159, 'ALIZAÂ914', '44dd5d3fb40d6575cbf31fbdcd6e4d61', 3, '4071613009', 2),
+(160, 'ANAM_I488', '2fdc5c686d7e638db33b8092d6389201', 3, '4071613010', 2),
+(161, 'FAIZAN939', '44abe6aaec13d161d7f2454b50094c1c', 3, '4071613011', 2),
+(162, 'AMNA_R484', '517dc9b25b754ed7b3dcb2d0e9a7cddd', 3, '4071613012', 2),
+(163, 'IBRAR_451', '796b8953947ba1a7274e7f64a6ddbd50', 3, '4071613013', 2),
+(164, 'MAHNOO942', '270a78c9ee82a6e893eb6c6eec807bb4', 3, '4071613014', 2),
+(165, 'ABDULL975', '0c10c35b934330995b2fd835a0b4e668', 3, '4071613015', 2),
+(166, 'HAMZA_924', '5ab69c239ca8cd6c06ac71bcbf91a8f7', 3, '4071613016', 2),
+(167, 'SADIA_848', '0101862b4478b50c4aa89d70f900e52d', 3, '4071613017', 2),
+(168, 'HAMZA_122', '19036b2da7359ea8f14fd9a79ea67a86', 3, '4071613018', 2),
+(169, 'ANEES_830', 'ece47d615b4989a6d33c563bbedb8305', 3, '4071613019', 2),
+(170, 'MARYEM392', '7fa259b3d928bac73d876c157b851f90', 3, '4071613020', 2),
+(171, 'MUHAMM913', '452f33565c768d0d3c848b2b63de165c', 3, '4071613021', 2),
+(172, 'AMNA_S348', '4fa78a1a7d3a275fed71d7ace5838c9b', 3, '4071613022', 2),
+(173, 'MUHAMM234', '28dcb1c8488568f10b2acd50cb84f5f9', 3, '4071613023', 2),
+(174, 'URWAH_805', 'baea4309ffcf22d9d4588a82c3dc64a0', 3, '4071613024', 2),
+(175, 'KHUZAM541', 'c1624bf3c2aaf4af5a1d790d44b1040e', 3, '4071613025', 2),
+(176, 'TALAHA885', '021f72de327b1a9aff1c94b3a70b0ea1', 3, '4071613026', 2),
+(177, 'ASMA_A534', '68e9e4de66450f863220b8c8c607ab15', 3, '4071613027', 2),
+(178, 'SONAIN667', 'cb31a805a4ddcc3c7ec18cf1b427801e', 3, '4071613028', 2),
+(179, 'MUHAMM951', 'cd9b9f14e301d4caa35aae9c0e5e0dd3', 3, '4071613029', 2),
+(180, 'ZOYA_K947', '12e2ebd674b13c1df819f39550c22216', 3, '4071613030', 2),
+(181, 'TABIB_851', '06f74899de4d03092cb99f651d3d773e', 3, '4071613031', 2),
+(182, 'MUHAMM959', '617643f1e2ce74cacfe772582a3fd1d0', 3, '4071613032', 2),
+(183, 'MUHAMM402', '873c2dd437948d7775064ee5add61b2d', 3, '4071613033', 2),
+(184, 'FIZZA_913', '8d82e426974be06f509466f3a5a6490c', 3, '4071613034', 2),
+(185, 'MUHAMM986', '65001b45db646471f6c91c9105e065ee', 3, '4071613035', 2),
+(186, 'HAMZA_793', 'd3de49f4aa5c101dd3e8afddbe35a2e2', 3, '4071613037', 2),
+(187, 'ARSLAN816', '3b0e00db8441dfe1dfaf505b73870962', 3, '4071613038', 2),
+(188, 'MIAN_A721', '4867ac49229016d5f020715238515fe6', 3, '4071613039', 2),
+(189, 'TALHA_137', '0c872b4842666fb8317bb753d632fadd', 3, '4071613040', 2),
+(190, 'USMAN_952', '75cb9bef16125b192a72a18ce5e66244', 3, '4071613041', 2),
+(191, 'AHMAD_720', '309cb141b519fbfc9d4dfbf753ca06b4', 3, '4071613042', 2),
+(192, 'EHTISH335', '5af858b0afabcc0a393f2d679ef818c2', 3, '4071613043', 2),
+(193, 'ALI_HA47', '199911a0bd8282926553c35aa6dfef4d', 3, '4071613044', 2),
+(194, 'ABDUL_31', '28e51c19ac378c1d575d81c06ff326c2', 3, '4071613045', 2),
+(195, 'AFRASI979', '997da0da2e4895b45e36e6f66941d0f7', 3, '4071613046', 2),
+(196, 'GHULAM427', 'cd7f7fb9f6adc9d4457e6bef0a69d8af', 3, '4071613047', 2),
+(197, 'MUHAMM618', 'c38622fe48e23c505f1650ce806e0cb9', 3, '4071613048', 2),
+(198, 'MUHAMM725', '38c86e6aaa790c08d295f47640a1e947', 3, '4071613049', 2),
+(199, 'ZAHABI555', '2d6cffd6ece84351f3e223ea6054e315', 3, '4071613050', 2),
+(200, 'AREEFA487', '13d4d0a3d25e0c8f668b21670ef77915', 3, '4071613052', 2),
+(201, 'SHAFQA98', '495ebb061ff7344226c3944cba86b78f', 3, '4071613053', 2),
+(202, 'JAMSHE206', 'e094b1c9208f77971b303d09025acadb', 3, '4071613054', 2),
+(203, 'TAIMOO110', '1f62ab2d496b1f649d6c96b86f2ac7b6', 3, '4071613055', 2),
+(204, 'MUZAMI245', '17dcbf15cfe1d2ac82d8ca92d12ef3d6', 3, '4071613058', 2),
+(205, 'AQIB_R736', '70fd93cbe6090474f19cd7e2ce33f065', 3, '4071613059', 2),
+(206, 'KHALIL599', '8b41189501391bb93fd7f73025f57451', 3, '4071613061', 2),
+(207, 'SHAKIR866', '85af5239bd26f53cfb3d6617b69d6ea4', 3, '4071613062', 2);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `courses`
---
-ALTER TABLE `courses`
-  ADD PRIMARY KEY (`Course_Id`),
-  ADD KEY `Semester_Id` (`Semester_Id`);
-
---
--- Indexes for table `department`
---
-ALTER TABLE `department`
-  ADD PRIMARY KEY (`Dept_Id`);
-
---
--- Indexes for table `enrolled_courses`
---
-ALTER TABLE `enrolled_courses`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `Course_Id` (`Course_Id`),
-  ADD KEY `User_Id` (`User_Id`);
-
---
--- Indexes for table `notification`
---
-ALTER TABLE `notification`
-  ADD PRIMARY KEY (`Notif_Id`),
-  ADD KEY `User_Id` (`User_Id`),
-  ADD KEY `notification_ibfk_2` (`p_id`);
-
---
--- Indexes for table `notification_statics`
---
-ALTER TABLE `notification_statics`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `sender_id` (`sender_id`);
-
---
--- Indexes for table `profile`
---
-ALTER TABLE `profile`
-  ADD PRIMARY KEY (`Profile_Id`),
-  ADD KEY `User_Id` (`User_Id`);
-
---
--- Indexes for table `semester`
---
-ALTER TABLE `semester`
-  ADD PRIMARY KEY (`Semester_Id`),
-  ADD KEY `Dept_Id` (`Dept_Id`);
-
---
--- Indexes for table `timetable`
---
-ALTER TABLE `timetable`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`User_Id`),
-  ADD KEY `Semester_Id` (`Semester_Id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `courses`
---
-ALTER TABLE `courses`
-  MODIFY `Course_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
---
--- AUTO_INCREMENT for table `department`
---
-ALTER TABLE `department`
-  MODIFY `Dept_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `enrolled_courses`
---
-ALTER TABLE `enrolled_courses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
---
--- AUTO_INCREMENT for table `notification`
---
-ALTER TABLE `notification`
-  MODIFY `Notif_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT for table `notification_statics`
---
-ALTER TABLE `notification_statics`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `profile`
---
-ALTER TABLE `profile`
-  MODIFY `Profile_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `semester`
---
-ALTER TABLE `semester`
-  MODIFY `Semester_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT for table `timetable`
---
-ALTER TABLE `timetable`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2052;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `User_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 --
 -- Constraints for dumped tables
 --
@@ -599,14 +1030,14 @@ ALTER TABLE `courses`
 -- Constraints for table `enrolled_courses`
 --
 ALTER TABLE `enrolled_courses`
-  ADD CONSTRAINT `enrolled_courses_ibfk_1` FOREIGN KEY (`Course_Id`) REFERENCES `courses` (`Course_Id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `enrolled_courses_ibfk_2` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `enrolled_courses_ibfk_4` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `enrolled_courses_ibfk_3` FOREIGN KEY (`Course_Id`) REFERENCES `courses` (`Course_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `notification`
 --
 ALTER TABLE `notification`
-  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `notification_ibfk_3` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`p_id`) REFERENCES `notification_statics` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
@@ -622,6 +1053,12 @@ ALTER TABLE `profile`
   ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`User_Id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `security_keys`
+--
+ALTER TABLE `security_keys`
+  ADD CONSTRAINT `security_keys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `semester`
 --
 ALTER TABLE `semester`
@@ -631,8 +1068,7 @@ ALTER TABLE `semester`
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`Semester_Id`) REFERENCES `semester` (`Semester_Id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-COMMIT;
+  ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`Semester_Id`) REFERENCES `semester` (`Semester_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

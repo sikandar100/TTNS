@@ -5,9 +5,9 @@ include ('session.php');
 
 $user = $_SESSION['login_user'];
 
-$curpass = $_POST['cpassword'];
-$newpass = $_POST['npassword'];
-$cnfpass = $_POST['cnfrmpassword'];
+$curpass = md5(mysqli_real_escape_string($conn,$_POST['cpassword']));
+$newpass = md5(mysqli_real_escape_string($_POST['npassword']));
+$cnfpass = md5(mysqli_real_escape_string($_POST['cnfrmpassword']));
 $type = $_POST['radiobtn'];
 
 $query = mysqli_query($conn,"SELECT Password,Type FROM users WHERE Username = '$user'");

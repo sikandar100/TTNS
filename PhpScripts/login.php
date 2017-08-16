@@ -19,7 +19,7 @@ if ($conn)
 	$type =stripslashes($type);
 	
 	$username = mysqli_real_escape_string($conn, $username);
-	$password = mysqli_real_escape_string($conn, $password);
+	$password = md5(mysqli_real_escape_string($conn, $password));
 	$type = mysqli_real_escape_string($conn, $type);
 	
 	$msg = array();
