@@ -3,6 +3,22 @@ $dir = "./";
 define('INCLUDE_CHECK', 'hmm');
 include ('PhpScripts/session.php');
 include ('PhpScripts/connection.php');
+if(isset($_GET['view'])){
+?>
+<!doctype html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="padding: 0px; margin:0px">
+<iframe src='https://docs.google.com/viewer?url=http://suleman996.unaux.com/New-Time-Table-Spring-21-01-2017..docx&embedded=true' style="height: 99vh; width:100%" frameborder='0'></iframe>
+</body>
+</html>
+<?php
+//<iframe src='https://docs.google.com/viewer?url=http://localhost/uploaded/temp/Time-Table.docx&embedded=true' frameborder='0'></iframe>
+} else {
 ?>
 <!doctype html>
 <html>
@@ -196,6 +212,10 @@ h3
 			</tbody>
 		</table>
 		<br>
+		<div class="col-md-4 col-md-offset-4"><a href="timeTable.php?view" class="btn btn-warning btn-block">View Orignal</a></div>
+		<br>
+		<br>
+		<br>
 	</div>
     </div>
     
@@ -214,3 +234,6 @@ h3
 </script>
 </body>
 </html>
+<?php
+}
+?>

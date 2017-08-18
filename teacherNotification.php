@@ -42,36 +42,12 @@ if(isset($_GET['d'])){
 </style>
 <script>
 function _(id){ return document.getElementById(id); }
-function submitForm()
-{
-	_("mybtn").disabled = true;
-	_("status").innerHTML = 'please wait ...';
-	var formdata = new FormData();
-	formdata.append( "dept", _("dept").value );
-	formdata.append( "semester", _("semester").value );
-	
-	var ajax = new XMLHttpRequest();
-	ajax.open( "POST", "PhpScripts/teacherNotificationScript.php" );
-	ajax.onreadystatechange = function() {
-		if(ajax.readyState == 4 && ajax.status == 200) {
-			var response = JSON.parse(ajax.responseText);
-			if(response.success){
-				_("status").innerHTML = "";
-				_("newForm").innerHTML = response.form;
-				_("mybtn").disabled = false;
-			} else {
-				_("status").innerHTML = response.error;
-				_("mybtn").disabled = false;
-			}
-		}
-	}
-	ajax.send( formdata );
-}
 function submitForm2()
 {
 	_("status2").innerHTML = 'please wait ...';
 	var formdata = new FormData();
 	formdata.append( "courses", _("courses").value );
+	formdata.append( "sendBy", _("sendBy").value );
 	formdata.append( "message", _("message").value );
 	formdata.append( "notification", _("notification").value );
 	_("notification").disabled = true;
@@ -84,6 +60,7 @@ function submitForm2()
 			if(response.success){
 				_("status2").innerHTML = "";
 				_("notification").disabled = false;
+				alert(response.s);
 				window.location.reload();
 			} else {
 				_("status2").innerHTML = response.error;
@@ -138,18 +115,19 @@ function submitForm2()
 		<div class = "col-md-10">
 			<br>
 			<div class="row border-between">
-				<div class="col-md-6">
-					<form class="form-horizontal col-md-12" action="">
+					<form class="form-horizontal col-md-12" action="PHPScripts/teacherNotificationScript.php" method="post" onsubmit="submitForm2(); return false;">
 						<div class="form-group">
-							<label for="dept" class="col-md-4 control-label">Department:</label>
-							<div class="col-md-8">
-								<select class="form-control" name="dept" id="dept">
+							<label for="semester" class="col-md-3 control-label">Course:</label>
+							<div class="col-md-6">
+								<select class="form-control" name="courses" id="courses" required>
 								<?php
 								$str="";
-								$query = mysqli_query($conn,"SELECT * FROM department WHERE 1");
+								$query = mysqli_query($conn,"SELECT * FROM `enrolled_courses` WHERE `User_Id` = " . $_SESSION['user_id']);
 								while($row=mysqli_fetch_assoc($query))
 								{
-									$str .= '<option value="'.$row['Dept_Id'].'">'.$row['Dept_Name'].'</option>';
+									$query2 = mysqli_query($conn,"SELECT * FROM `courses` WHERE `Course_Id` = " . $row['Course_Id']);
+									$row2 = mysqli_fetch_assoc($query2);
+									$str .= '<option value="'.$row2['Course_Id'].'">'.$row2['Course_Title'].' ('.$row2['Course_Code'].')'.'</option>';
 								}
 								echo $str;
 								?>
@@ -157,25 +135,29 @@ function submitForm2()
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="semester" class="col-md-4 control-label">Semester:</label>
-							<div class="col-md-8">
-								<select class="form-control" name="semester" id="semester">
-									<option value="1st">1st</option>
-									<option value="2nd">2nd</option>
-									<option value="3rd">3rd</option>
-									<option value="4th">4th</option>
+							<label for="sendBy" class="col-md-3 control-label">Send By:</label>
+							<div class="col-md-6">
+								<select class="form-control" name="sendBy" id="sendBy" required>
+									<option value="1">Default</option>
+									<option value="2">SMS</option>
+									<option value="3">Email</option>
 								</select>
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-							  <button type="button" class="btn btn-default" value="Get Courses" name="course" id="mybtn" onclick="submitForm()">Get Courses</button>
+							<label for="semester" class="col-md-3 control-label">Message:</label>
+							<div class="col-md-6">
+								<textarea class="form-control" rows="4" name="message" id="message" required></textarea>
 							</div>
 						</div>
-						<p id="status" class="col-md-12"></p>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-default" value="notification" name="notification" id="notification">Send Notification</button>
+							</div>
+						</div>
+						<p id="status2" class="col-md-12"></p>
+						<p><b>Note</b>: Below statics are only for send by default</p>
 					</form>
-				</div>
-				<div class="col-md-6" id="newForm"></div>
 			</div>
 			<hr>
 			<div class="col-md-12">

@@ -152,6 +152,18 @@ function submitForm()
 					</div>
 				</div>
 				<div class="form-group">
+					<label for="deleteS" class="col-sm-4 control-label">Delete Old Student of:</label>
+					<div class="col-sm-8">
+						<select class="form-control" name="deleteS" id="deleteS">
+							<option value="0" selected>None</option>
+							<option value="4th">4th Semester</option>
+							<option value="3rd">3rd Semester</option>
+							<option value="2nd">2nd Semester</option>
+							<option value="1st">1st Semester</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
 					<label for="fileToUpload" class="col-sm-4 control-label">Select File to upload:</label>
 					<div class="col-sm-8">
 						<input type="file" name="fileToUpload" id="fileToUpload">

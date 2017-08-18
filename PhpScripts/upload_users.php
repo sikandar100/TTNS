@@ -124,10 +124,20 @@ function registeruser($data)
 	global $conn;
 	
 	$semester = mysqli_real_escape_string($conn,$_POST['semester']);
+	$deleteS = mysqli_real_escape_string($conn,$_POST['deleteS']);
 	$dept = mysqli_real_escape_string($conn,$_POST['dept']);
 	$query = mysqli_query($conn,"SELECT `Semester_Id` FROM `semester` WHERE `Semester_Name` = '".$semester."' AND `Dept_Id` = '".$dept."'");
 	$semId = mysqli_fetch_assoc($query);
 	$semId = $semId['Semester_Id']; 
+	
+	if($deleteS){
+		$query = mysqli_query($conn,"SELECT `Semester_Id` FROM `semester` WHERE `Semester_Name` = '".$deleteS."' AND `Dept_Id` = '".$dept."'");
+		$DsemId = mysqli_fetch_assoc($query);
+		$DsemId = $DsemId['Semester_Id'];
+		
+		mysqli_query($conn,"DELETE FROM `users` WHERE `Semester_Id` = ".$DsemId);
+		
+	}
 
 	$regId = substr($data[0], 1);
 	$query = mysqli_query($conn,"SELECT * FROM users WHERE Reg_Id = '$regId'");
@@ -189,25 +199,4 @@ function registeruser($data)
 	}
 	
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-   
 ?>
