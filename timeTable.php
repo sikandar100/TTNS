@@ -17,7 +17,7 @@ if(isset($_GET['view'])){
 </body>
 </html>
 <?php
-//<iframe src='https://docs.google.com/viewer?url=http://localhost/uploaded/temp/Time-Table.docx&embedded=true' frameborder='0'></iframe>
+//<iframe src='https://docs.google.com/viewer?url=http://localhost/uploaded/temp/Time-Table.docx&embedded=true' style="height: 99vh; width:100%" frameborder='0'></iframe>
 } else {
 ?>
 <!doctype html>
@@ -74,6 +74,8 @@ h3
 	else if ($_SESSION['login_type']==2) //Teacher Menu
 	{
     	echo '
+			  <li><a href="userProfile.php">User Profile</a></li>
+			  <li><a href="editProfile.php">Edit Profile</a></li>
 			  <li><a href="teacherNotification.php">Send Notification</a></li>
 			';
 	}
@@ -83,6 +85,7 @@ h3
 			  <li><a href="uploadTimeTable.php">Upload TimeTable</a></li>
 			  <li><a href="adminReports.php">Time Table Report</a></li>
 			  <li><a href="registerUsers.php">Register Users</a></li>
+			  <li><a href="adminTeacher.php">Course Allocation</a></li>
 			';
 	}
 		?>
@@ -230,6 +233,7 @@ h3
 <script>
 	$(document).ready(function() {
 		$('#TimeTable').DataTable();
+		
 	} );
 </script>
 </body>

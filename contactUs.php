@@ -62,7 +62,7 @@ function submitForm(){
 			 <li><a class="active" href="welcome.php">Home</a></li>
 			 <li><a href="timeTable.php">Time Table</a></li>
 			 <li><a href="changePassword.php">Change Password</a></li>
-	<?php
+<?php
 	if($_SESSION['login_type']==3) //Student Menu
 	{
     	echo '
@@ -74,6 +74,8 @@ function submitForm(){
 	else if ($_SESSION['login_type']==2) //Teacher Menu
 	{
     	echo '
+			  <li><a href="userProfile.php">User Profile</a></li>
+			  <li><a href="editProfile.php">Edit Profile</a></li>
 			  <li><a href="teacherNotification.php">Send Notification</a></li>
 			';
 	}
@@ -83,6 +85,7 @@ function submitForm(){
 			  <li><a href="uploadTimeTable.php">Upload TimeTable</a></li>
 			  <li><a href="adminReports.php">Time Table Report</a></li>
 			  <li><a href="registerUsers.php">Register Users</a></li>
+			  <li><a href="adminTeacher.php">Course Allocation</a></li>
 			';
 	}
 		?>

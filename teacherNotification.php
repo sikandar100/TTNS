@@ -60,7 +60,6 @@ function submitForm2()
 			if(response.success){
 				_("status2").innerHTML = "";
 				_("notification").disabled = false;
-				alert(response.s);
 				window.location.reload();
 			} else {
 				_("status2").innerHTML = response.error;
@@ -96,6 +95,8 @@ function submitForm2()
 	else if ($_SESSION['login_type']==2) //Teacher Menu
 	{
     	echo '
+			  <li><a href="userProfile.php">User Profile</a></li>
+			  <li><a href="editProfile.php">Edit Profile</a></li>
 			  <li><a href="teacherNotification.php">Send Notification</a></li>
 			';
 	}
@@ -105,6 +106,7 @@ function submitForm2()
 			  <li><a href="uploadTimeTable.php">Upload TimeTable</a></li>
 			  <li><a href="adminReports.php">Time Table Report</a></li>
 			  <li><a href="registerUsers.php">Register Users</a></li>
+			  <li><a href="adminTeacher.php">Course Allocation</a></li>
 			';
 	}
 		?>
@@ -139,7 +141,6 @@ function submitForm2()
 							<div class="col-md-6">
 								<select class="form-control" name="sendBy" id="sendBy" required>
 									<option value="1">Default</option>
-									<option value="2">SMS</option>
 									<option value="3">Email</option>
 								</select>
 							</div>

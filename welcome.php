@@ -57,6 +57,8 @@ h3
 	else if ($_SESSION['login_type']==2) //Teacher Menu
 	{
     	echo '
+			  <li><a href="userProfile.php">User Profile</a></li>
+			  <li><a href="editProfile.php">Edit Profile</a></li>
 			  <li><a href="teacherNotification.php">Send Notification</a></li>
 			';
 	}
@@ -66,6 +68,7 @@ h3
 			  <li><a href="uploadTimeTable.php">Upload TimeTable</a></li>
 			  <li><a href="adminReports.php">Time Table Report</a></li>
 			  <li><a href="registerUsers.php">Register Users</a></li>
+			  <li><a href="adminTeacher.php">Course Allocation</a></li>
 			';
 	}
 		?>
@@ -75,11 +78,13 @@ h3
 		</ul>
 		<div class=" col-md-10">
 			<?php
-				$sql = "SELECT * FROM `notification` WHERE `User_Id` = ".$_SESSION['user_id']." AND `Checkpoint`=1";
-				$query = mysqli_query($conn,$sql);
-				$count = mysqli_num_rows($query);
-				if($count>0){
-					echo '<br><div class="alert alert-info" role="alert"><span> You have '.$count.' unseen notification</span></div>';
+				if($_SESSION['login_type']==3) {
+					$sql = "SELECT * FROM `notification` WHERE `User_Id` = ".$_SESSION['user_id']." AND `Checkpoint`=1";
+					$query = mysqli_query($conn,$sql);
+					$count = mysqli_num_rows($query);
+					if($count>0){
+						echo '<br><div class="alert alert-info" role="alert"><span> You have '.$count.' unseen notification</span></div>';
+					}
 				}
 			?>
 			<div class="welcomenote">

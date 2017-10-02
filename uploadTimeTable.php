@@ -51,6 +51,8 @@ if($_SESSION['login_type'] != 1){
 	else if ($_SESSION['login_type']==2) //Teacher Menu
 	{
     	echo '
+			  <li><a href="userProfile.php">User Profile</a></li>
+			  <li><a href="editProfile.php">Edit Profile</a></li>
 			  <li><a href="teacherNotification.php">Send Notification</a></li>
 			';
 	}
@@ -60,6 +62,7 @@ if($_SESSION['login_type'] != 1){
 			  <li><a href="uploadTimeTable.php">Upload TimeTable</a></li>
 			  <li><a href="adminReports.php">Time Table Report</a></li>
 			  <li><a href="registerUsers.php">Register Users</a></li>
+			  <li><a href="adminTeacher.php">Course Allocation</a></li>
 			';
 	}
 		?>
@@ -69,6 +72,15 @@ if($_SESSION['login_type'] != 1){
 		</ul>
 		<div class = "registerusers col-md-10">
 			<div class = " divide2 col-md-8">
+			<?php
+				if(isset($_GET['error'])){
+					if((int)$_GET['error'] === 1){
+						echo '<div class="alert alert-success" role="alert">Time Table Uploaded Successfully</div>';
+					} else {
+						echo '<div class="alert alert-danger" role="alert">'.$_GET['error'].'</div>';
+					}
+				}
+			?>
 				<form class="form-horizontal" action="PhpScripts/parseTimeTable.php" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Time Table Type:</label>

@@ -14,11 +14,6 @@ if(isset($_POST['courses']) && isset($_POST['notification']) && isset($_POST['se
 	$result = mysqli_fetch_assoc($result);
 	
 	switch($_POST['sendBy']){
-		case 2:
-		
-			//SMS API HERE
-		
-		break;
 		case 3:
 			$sql = "SELECT * FROM `enrolled_courses` WHERE `Course_Id` = ".$course;
 			$query = mysqli_query($conn,$sql);

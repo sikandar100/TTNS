@@ -37,12 +37,14 @@ include ('session.php');
 			generate_notifications(false);
 		}
 		if (isset($_SERVER["HTTP_REFERER"])) {
-			header("Location: " . $_SERVER["HTTP_REFERER"]);
+			header("Location: ../uploadTimeTable.php?error=1");
 		}
-      }else{
-         print_r($errors);
-		 exit;
+      } else {
+			header('Location: ../uploadTimeTable.php?error='.urlencode(implode('<br>',$errors)));
+			exit;
       }
+   } else {
+		die('forbiden access');
    }
 
 /*

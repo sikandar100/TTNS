@@ -96,7 +96,7 @@ if(isset($_POST['courses']) && is_array($_POST['courses']) && isset($_GET['edit'
 			  <li><a href="uploadTimeTable.php">Upload TimeTable</a></li>
 			  <li><a href="adminReports.php">Time Table Report</a></li>
 			  <li><a href="registerUsers.php">Register Users</a></li>
-			  <li><a href="adminTeacher.php">Teachers</a></li>
+			  <li><a href="adminTeacher.php">Course Allocation</a></li>
 			';
 	}
 		?>
