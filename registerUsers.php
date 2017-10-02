@@ -187,7 +187,7 @@ function submitForm()
 			<table>
 				<tr><td><p style="font-size:150%;">Username:</p></td><td> <input type="text" id="username" name="username" placeholder="Username" required></p></td></tr>
 				<tr><td><p style="font-size:150%;">Password:</p></td> <td><input type="password" id="password" name="password" placeholder="Password" required></p></td></tr>
-				<tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" id="regId" name="regId" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="number" id="regId" name="regId" oninput="input_check(event, 'number')" required></p></td></tr>
 			</table>
 			<p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
 			<input style="font-size:150%;" type="submit" id="mybtn" value="Submit"></p>
@@ -200,5 +200,6 @@ function submitForm()
 </div>
 <script src="./JavaScripts/js/jquery.min.js"></script>
 <script src="./JavaScripts/js/bootstrap.min.js"></script>
+<script src= "JavaScripts/myScript.js"></script>
 </body>
 </html>

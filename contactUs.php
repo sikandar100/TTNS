@@ -105,7 +105,7 @@ function submitForm(){
             <div class="form-group">
               <label class="col-md-3 control-label" for="name">Name</label>
               <div class="col-md-9">
-                <input id="n" name="name" type="text" placeholder="Your name" class="form-control" required>
+                <input id="n" name="name" type="text" oninput="input_check(event, 'name')" placeholder="Your name" class="form-control" required>
               </div>
             </div>
     
@@ -141,5 +141,6 @@ function submitForm(){
 	<div class="footer col-md-12">
    	 <p id="foot">Copy Rights Reserved &copy; Sikandar Waheed</p>
     </div>
+<script src= "JavaScripts/myScript.js"></script>
 </body>
 </html>

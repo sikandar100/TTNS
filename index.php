@@ -74,7 +74,7 @@ function submitForm()
      	 <div class="content col-md-12">
             <form method="post" class="form-horizontal" onsubmit="submitForm(); return false;">
 			<table>
-              <tr><td><p style="font-size:150%;">Username:</p></td><td><input type="text" id="username" name="username" placeholder="Username" required></td></tr>
+              <tr><td><p style="font-size:150%;">Username:</p></td><td><input type="text" id="username" name="username" oninput="input_check(event, 'username')" placeholder="Username" required></td></tr>
                 <tr><td><p style="font-size:150%;">Password:</p></td><td><input type="password" id="password" name="password" placeholder="Password" required></td></tr>
 			</table>
                 <p style="font-size:150%;">Admin:<input type="radio" value="1" name="radiobtn" required>&nbsp;&nbsp; 
@@ -93,5 +93,6 @@ function submitForm()
          <p id="foot">Copy Rights Reserved &copy; Sikandar Waheed</p>
         </div>
     </div>
+<script src= "JavaScripts/myScript.js"></script>
 </body>
 </html>

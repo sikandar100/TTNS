@@ -106,12 +106,12 @@ function submitForm()
 			<form method="post" class="form-horizontal" onsubmit="submitForm(); return false;">
 				<p style="font-size:250%;">Profile:</p>
 				<table>
-				<tr><td><p style="font-size:150%;">FirstName:</p></td><td> <input type="text" id="Fname" name="Fname" placeholder="FirstName" required></p></td></tr>
-				<tr><td><p style="font-size:150%;">LastName:</p></td> <td><input type="text" id="Lname" name="Lname" placeholder="LastName" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">FirstName:</p></td><td> <input type="text" id="Fname" name="Fname" oninput="input_check(event, 'name')" placeholder="FirstName" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">LastName:</p></td> <td><input type="text" id="Lname" name="Lname" oninput="input_check(event, 'name')" placeholder="LastName" required></p></td></tr>
 				<tr><td><p style="font-size:150%;">Address:</p></td><td> <input type="text" id="Address" name="Address" placeholder="Address" required></p></td></tr>
-				<tr><td><p style="font-size:150%;">ContactNo:</p></td><td> <input type="text" id="Contact" name="Contact" placeholder="Contact#" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">ContactNo:</p></td><td> <input type="number" id="Contact" oninput="input_check(event, 'number')" name="Contact" placeholder="Contact#" required></p></td></tr>
 				<tr><td><p style="font-size:150%;">Email:</p></td><td> <input type="email" id="Email" name="Email" placeholder="EmailAddress" required></p></td></tr>
-				<tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="text" id="RegistrationId" name="RegistrationId" placeholder="Registration_Id" required></p></td></tr>
+				<tr><td><p style="font-size:150%;">RegistrationId:</p></td><td> <input type="number" id="RegistrationId" oninput="input_check(event, 'number')" name="RegistrationId" placeholder="Registration_Id" required></p></td></tr>
 			   </table>
 				<p><input style="font-size:150%;" type="reset" Value="Clear">&nbsp;&nbsp;&nbsp;
 				<input style="font-size:150%;" type="submit" id="mybtn" value="Submit"></p>
@@ -125,5 +125,6 @@ function submitForm()
    	 <p id="foot">Copy Rights Reserved &copy; Sikandar Waheed</p>
     </div>
 </div>
+<script src= "JavaScripts/myScript.js"></script>
 </body>
 </html>
